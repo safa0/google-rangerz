@@ -1,4 +1,4 @@
-# Svenska Ugglan - Swedish Learning App for Children
+# Swedish Learning App for Children
 
 [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
 [![React Router](https://img.shields.io/badge/React_Router-6.x-CA4245.svg)](https://reactrouter.com/)
