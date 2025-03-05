@@ -143,8 +143,6 @@ User data is managed through React state in `App.js` and passed down to componen
 
 - **Backend Integration**: Replace mock data with API calls
 - **User Authentication**: Add login/registration functionality
-- **Multiple Languages**: Support for additional languages
-- **Offline Mode**: Cache stories for offline learning
 - **Parent Dashboard**: Analytics and progress monitoring for parents
 - **Teacher Tools**: Classroom management for educational settings
 
@@ -173,7 +171,4 @@ The application uses standard React development tools. Use the React Developer T
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-
-- Inspired by Duolingo ABC
-- Designed for Swedish language education
-- Created to make learning fun and engaging for children
+- TBA
