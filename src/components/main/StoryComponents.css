@@ -1,0 +1,330 @@
+/* Common styles for story components */
+.story-component {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .story-image-container {
+    width: 100%;
+    margin-bottom: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+  }
+  
+  .story-image-container img {
+    width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  
+  .story-text-container {
+    width: 100%;
+    margin-bottom: 32px;
+    opacity: 0;
+  }
+  
+  .story-text {
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: center;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .story-question-container {
+    width: 100%;
+    margin-bottom: 24px;
+    opacity: 0;
+  }
+  
+  .story-question {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+  }
+  
+  .story-continue-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #2196F3;
+    color: white;
+    font-size: 24px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+    opacity: 0;
+  }
+  
+  .story-continue-button:hover {
+    transform: scale(1.05);
+    background-color: #1E88E5;
+  }
+  
+  .options-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .option-button {
+    padding: 14px 20px;
+    border-radius: 12px;
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .option-button:hover:not(:disabled) {
+    border-color: #2196F3;
+    background-color: #f5f5f5;
+  }
+  
+  .option-button.correct {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+    animation: pulse 0.5s ease;
+  }
+  
+  .option-button.incorrect {
+    background-color: #F44336;
+    color: white;
+    border-color: #F44336;
+    animation: shake 0.5s ease;
+  }
+  
+  .option-button:disabled {
+    cursor: default;
+  }
+  
+  .option-button.fade-out {
+    opacity: 0.5;
+  }
+  
+  /* Special styles for fill-in-the-blank component */
+  .blank-space {
+    display: inline-block;
+    min-width: 80px;
+    padding: 0 8px;
+    border-bottom: 2px solid #2196F3;
+    color: #2196F3;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Feedback container */
+  .feedback-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 100;
+    animation: fadeIn 0.3s ease, fadeOut 0.3s ease 1.2s forwards;
+  }
+  
+  .correct-feedback {
+    background-color: rgba(76, 175, 80, 0.9);
+  }
+  
+  .incorrect-feedback {
+    background-color: rgba(244, 67, 54, 0.9);
+  }
+  
+  .feedback-text {
+    text-align: center;
+  }
+  
+  /* Character reaction */
+  .character-reaction {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  
+  .reaction-emoji {
+    font-size: 40px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+  }
+  
+  /* Story completion screen */
+  .story-complete {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #212121;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .completion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+  }
+  
+  .celebration-character {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .celebration-character img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .celebration-character-duolingo {
+    position: absolute;
+    right: -30px;
+    bottom: -10px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .completion-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 8px;
+  }
+  
+  .completion-subtitle {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 32px;
+  }
+  
+  .stats-container {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+    opacity: 0;
+  }
+  
+  .stat-box {
+    flex: 1;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .xp-box {
+    background-color: #FFC107;
+    color: #333;
+  }
+  
+  .time-box {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .accuracy-box {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .stat-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  
+  .stat-value {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  
+  .continue-button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    opacity: 0;
+  }
+  
+  .continue-button:hover {
+    background-color: #1E88E5;
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; visibility: hidden; }
+  }
+  
+  .hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .story-text {
+      font-size: 18px;
+    }
+    
+    .story-question {
+      font-size: 20px;
+    }
+    
+    .option-button {
+      padding: 12px 16px;
+      font-size: 16px;
+    }
+    
+    .stats-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
