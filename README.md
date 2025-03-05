@@ -5,7 +5,7 @@
 
 ## Overview
 
-Svenska Ugglan ("Swedish Owl") is an interactive language learning application designed for children aged 9-13 to learn Swedish. Inspired by Duolingo ABC, this app focuses on reading comprehension and vocabulary building through interactive stories and gamified learning experiences.
+... is an interactive language learning application designed for children aged "9-13" to learn Swedish. Inspired by Duolingo, this app focuses on reading comprehension and vocabulary building through interactive stories and gamified learning experiences.
 
 ![App Screenshot](https://via.placeholder.com/800x400?text=Svenska+Ugglan+App)
 
