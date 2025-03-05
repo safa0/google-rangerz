@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# Svenska Ugglan - Swedish Learning App for Children
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+[![React Router](https://img.shields.io/badge/React_Router-6.x-CA4245.svg)](https://reactrouter.com/)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Svenska Ugglan ("Swedish Owl") is an interactive language learning application designed for children aged 9-13 to learn Swedish. Inspired by Duolingo ABC, this app focuses on reading comprehension and vocabulary building through interactive stories and gamified learning experiences.
 
-### `npm start`
+![App Screenshot](https://via.placeholder.com/800x400?text=Svenska+Ugglan+App)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Interactive Onboarding**: Personalized setup process for children, parents, or teachers
+- **Story-based Learning**: Engaging stories with interactive elements to practice reading
+- **Multiple Learning Components**:
+  - Reading pages with text and illustrations
+  - Fill-in-the-blank exercises
+  - Comprehension questions
+- **Gamified Learning**: XP points, streaks, badges, and achievements
+- **Progress Tracking**: Stats and visualizations to monitor improvement
+- **Motivational Profile**: Personal stats page with streaks and achievements
+- **Responsive Design**: Works seamlessly on both desktop and mobile devices
 
-### `npm test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React 18
+- React Router 6
+- CSS3 with custom animations
+- localStorage for persistence
 
-### `npm run build`
+## Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── components/
+│   ├── onboarding/        # User setup and personalization
+│   │   ├── Welcome.js
+│   │   ├── HowDidYouHear.js
+│   │   ├── WhoIsLearning.js
+│   │   ├── ChildName.js
+│   │   ├── ChildAge.js
+│   │   ├── CharacterSelection.js
+│   │   └── InterestSelection.js
+│   ├── main/              # Core app functionality
+│   │   ├── StoriesExplorer.js
+│   │   ├── StoryReader.js
+│   │   ├── StoryReader.css
+│   │   ├── ReadingComponent.js
+│   │   ├── FillBlankComponent.js
+│   │   ├── ComprehensionComponent.js
+│   │   ├── StoryComplete.js
+│   │   └── StoryComponents.css
+│   └── profile/           # User statistics and achievements
+│       ├── ProfilePage.js
+│       └── ProfilePage.css
+├── App.js                 # Main application component
+├── App.css                # Global styles
+├── index.js               # Entry point
+└── index.css              # Base styles
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+- Node.js (v14.0.0 or higher)
+- npm (v6.0.0 or higher)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/svenska-ugglan.git
+   cd svenska-ugglan
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-## Learn More
+4. The application will be available at `http://localhost:3000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Development Guidelines
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Adding New Stories
 
-### Code Splitting
+Stories are currently stored as mock data in `StoryReader.js`. Each story consists of:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+{
+  id: number,
+  title: string,
+  pages: [
+    {
+      type: "intro" | "reading" | "fillBlank" | "comprehension",
+      imageUrl: string,
+      // Additional properties based on type
+    }
+  ]
+}
+```
 
-### Analyzing the Bundle Size
+To add a new story, create a new mock story object and add it to the stories array.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Creating New Components
 
-### Making a Progressive Web App
+1. Create your component file in the appropriate directory
+2. Import necessary dependencies
+3. Define your component using React Hooks
+4. Add styling in the corresponding CSS file
+5. Export your component and import it where needed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Handling User Data
 
-### Advanced Configuration
+User data is managed through React state in `App.js` and passed down to components via props. The app uses the following state structure:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```javascript
+{
+  userType: string,
+  childName: string,
+  childAge: string,
+  character: string,
+  interests: string[],
+  joinDate: string,
+  stats: {
+    currentStreak: number,
+    longestStreak: number,
+    totalXP: number,
+    storiesCompletedToday: number,
+    totalStoriesCompleted: number
+  }
+}
+```
 
-### Deployment
+## Feature Development Roadmap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Backend Integration**: Replace mock data with API calls
+- **User Authentication**: Add login/registration functionality
+- **Multiple Languages**: Support for additional languages
+- **Offline Mode**: Cache stories for offline learning
+- **Parent Dashboard**: Analytics and progress monitoring for parents
+- **Teacher Tools**: Classroom management for educational settings
 
-### `npm run build` fails to minify
+## Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Common Issues
+
+- **Component Import Errors**: Ensure you're using the correct import syntax (default vs named exports)
+- **Styling Issues**: Check for CSS conflicts and ensure class names are unique
+- **Routing Problems**: Verify that all routes are correctly defined in `App.js`
+
+### Debugging
+
+The application uses standard React development tools. Use the React Developer Tools browser extension for component inspection and debugging.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Inspired by Duolingo ABC
+- Designed for Swedish language education
+- Created to make learning fun and engaging for children
