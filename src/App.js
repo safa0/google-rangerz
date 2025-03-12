@@ -4,7 +4,6 @@ import './App.css';
 
 // Components
 import Welcome from './components/onboarding/Welcome';
-import HowDidYouHear from './components/onboarding/HowDidYouHear';
 import WhoIsLearning from './components/onboarding/WhoIsLearning';
 import ChildName from './components/onboarding/ChildName';
 import ChildAge from './components/onboarding/ChildAge';
@@ -116,7 +115,6 @@ function App() {
         <div className="app">
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/how-did-you-hear" element={<HowDidYouHear updateUserData={updateUserData} />} />
             <Route path="/who-is-learning" element={<WhoIsLearning updateUserData={updateUserData} />} />
             <Route path="/child-name" element={<ChildName updateUserData={updateUserData} userData={userData} />} />
             <Route path="/child-age" element={<ChildAge updateUserData={updateUserData} userData={userData} />} />

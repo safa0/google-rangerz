@@ -37,9 +37,9 @@ const Welcome = () => {
   }, [navigate]);
 
   // Handle mock Google Sign-In
-  const handleMockLogin = async (email, name) => {
-    if (!email || !name) {
-      setError('Please enter both email and name');
+  const handleMockLogin = async (email) => {
+    if (!email) {
+      setError('Please enter your email');
       return;
     }
     
@@ -54,7 +54,6 @@ const Welcome = () => {
         },
         body: JSON.stringify({
           email,
-          name,
           isNewUser: isSignup,
         }),
         credentials: 'include', // Important for cookies/session
@@ -68,8 +67,8 @@ const Welcome = () => {
         
         // Direct to different routes based on whether it's a login or signup
         if (isSignup) {
-          // For new users, go to onboarding flow
-          navigate('/how-did-you-hear');
+          // For new users, go to onboarding flow - skip HowDidYouHear
+          navigate('/who-is-learning');
         } else {
           // For existing users, go directly to stories page
           navigate('/stories');
@@ -141,10 +140,10 @@ const Welcome = () => {
         </div>
       ) : (
         <div className="login-options">
-          {/* Class code login button */}
+          {/* Class code login button - updated to skip HowDidYouHear */}
           <button 
             className="login-button class-code"
-            onClick={() => navigate('/how-did-you-hear')}
+            onClick={() => navigate('/who-is-learning')}
           >
             <span className="login-icon">🔑</span>
             LOGGA IN MED KLASSKOD
@@ -204,11 +203,10 @@ const Welcome = () => {
 // Extracted as a separate component to prevent re-renders
 const MockLoginForm = memo(({ isLoading, isSignup, onLogin, onCancel }) => {
   const [mockEmail, setMockEmail] = useState('');
-  const [mockName, setMockName] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(mockEmail, mockName);
+    onLogin(mockEmail);
   };
 
   return (
@@ -239,21 +237,6 @@ const MockLoginForm = memo(({ isLoading, isSignup, onLogin, onCancel }) => {
               type="email" 
               value={mockEmail} 
               onChange={(e) => setMockEmail(e.target.value)}
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                borderRadius: '4px', 
-                border: '1px solid #ccc' 
-              }}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px' }}>Name:</label>
-            <input 
-              type="text" 
-              value={mockName} 
-              onChange={(e) => setMockName(e.target.value)}
               style={{ 
                 width: '100%', 
                 padding: '8px', 

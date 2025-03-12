@@ -95,28 +95,24 @@ def mock_google_login():
     """
     try:
         email = request.json.get('email')
-        name = request.json.get('name')
         is_signup = request.json.get('isNewUser', False)
         
-        if not email or not name:
+        if not email:
             return jsonify({
                 'status': 'error',
-                'message': 'Email and name are required'
+                'message': 'Email is required'
             }), 400
         
         # Generate a mock user ID (in production this would come from Google)
         # Using the email to ensure the same user gets the same ID
         userid = str(uuid.uuid5(uuid.NAMESPACE_DNS, email))
         
-        # Use a default profile picture based on first letter of name
-        picture = f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=random"
-        
         # Connect to database
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         
         # Check if user already exists
-        cursor.execute('SELECT id, is_new_user, onboarding_completed FROM users WHERE email = ?', (email,))
+        cursor.execute('SELECT id, name, is_new_user, onboarding_completed FROM users WHERE email = ?', (email,))
         existing_user = cursor.fetchone()
         
         current_timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -125,22 +121,28 @@ def mock_google_login():
             # User exists
             is_new = False
             onboarding_completed = existing_user[2] if existing_user[2] is not None else False
+            name = existing_user[1]  # Get existing name
             
-            # Update the user's information
+            # Update the user's last login time
             cursor.execute('''
             UPDATE users 
-            SET name = ?, picture = ?, last_login = ?
+            SET last_login = ?
             WHERE id = ?
-            ''', (name, picture, current_timestamp, userid))
+            ''', (current_timestamp, userid))
             
             # If it's a signup request but user exists, we'll just log them in
             if is_signup:
                 # Maybe we could add a message about existing account, but for simplicity we'll just log them in
                 pass
         else:
-            # New user
+            # New user - generate a default name from email
             is_new = True
             onboarding_completed = False
+            name = email.split('@')[0]  # Use part before @ as default name
+            
+            # Generate a default profile picture based on first letter of email
+            first_letter = email[0].upper()
+            picture = f"https://ui-avatars.com/api/?name={first_letter}&background=random"
             
             # Insert the new user
             cursor.execute('''
