@@ -12,6 +12,7 @@ import InterestSelection from './components/onboarding/InterestSelection';
 import StoriesExplorer from './components/main/StoriesExplorer';
 import StoryReader from './components/main/StoryReader';
 import ProfilePage from './components/profile/ProfilePage';
+import InitStory from './components/content/InitStory';
 
 // Create AuthContext
 export const AuthContext = React.createContext({
@@ -247,8 +248,14 @@ function App() {
                 <ProfilePage userData={userData} />
               </ProtectedRoute>
             } />
+       
+            {/* Add the InitStory route */}
+            <Route path="/init-story" element={
+              <ProtectedRoute>
+                <InitStory />
+              </ProtectedRoute>
+            } />
             
-            {/* Catch all undefined routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
