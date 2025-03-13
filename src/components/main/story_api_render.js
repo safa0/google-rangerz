@@ -48,10 +48,15 @@ export const getChaptersByStory = async (storyId) => {
     const data = await response.json();
 
     if (data.status === 'success') {
-      return data.chapters.map((chapter) => ({
+        var data_to_return = data.chapters.map((chapter) => ({
         ...chapter,
         ...parseRawText(chapter.raw_text), // Merging parsed content directly
       }));
+      data_to_return = data_to_return.map((chapter) => ({
+        ...chapter,
+        opt: parseText(chapter.opt),
+      }));
+      return data_to_return;
     } else {
       throw new Error(data.message);
     }
@@ -60,6 +65,19 @@ export const getChaptersByStory = async (storyId) => {
     return [];
   }
 };
+
+function parseText(input) {
+    // Extract text outside of brackets
+    const outsideText = input.replace(/\[.*?\]/g, '').trim();
+    
+    // Extract text inside brackets
+    const insideOptions = input.match(/\[(.*?)\]/g).map(option => option.slice(1, -1));
+    
+    return {
+        "txt": outsideText,
+        "options": insideOptions
+    };
+}
 
 const parseRawText = (rawText) => {
   const sections = {};

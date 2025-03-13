@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReadingComponent from './ReadingComponent';
 import FillBlankComponent from './FillBlankComponent';
 import ComprehensionComponent from './ComprehensionComponent';
+import SelectOptionComponent from './SelectOptionComponent.js';
 import StoryComplete from './StoryComplete';
 import './StoryReader.css';
 import { getChaptersByStory } from './story_api_render.js';
@@ -30,14 +31,12 @@ const StoryReader = ({ userData, updateUserStats }) => {
             type: "reading",
             imageUrl: chapter.image || "https://via.placeholder.com/300",
             text: chapter.txt || "",
-            options: chapter.metadata?.options || [],
-            correctAnswer: chapter.metadata?.correctAnswer || ""
           },
           {
-            type: "fillBlank",
+            type: "selectOption",
             imageUrl: chapter.image || "https://via.placeholder.com/300",
-            text: chapter.txt || "",
-            options: chapter.metadata?.options || [],
+            text: chapter.opt.txt || "",
+            options: chapter.opt.options || [],
             correctAnswer: chapter.metadata?.correctAnswer || ""
           },
           {
@@ -158,8 +157,10 @@ const StoryReader = ({ userData, updateUserStats }) => {
         );
       case 'reading':
         return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} onNext={() => handleNext(true)} />;
+      case 'selectOption':
+        return <SelectOptionComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} onNext={handleNext} />;
       case 'fillBlank':
-        return <FillBlankComponent text={current_stage_page.text} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
+        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
       case 'comprehension':
         return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
       default:
