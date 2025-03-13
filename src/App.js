@@ -10,7 +10,7 @@ import ChildName from './components/onboarding/ChildName';
 import ChildAge from './components/onboarding/ChildAge';
 import CharacterSelection from './components/onboarding/CharacterSelection';
 import InterestSelection from './components/onboarding/InterestSelection';
-import StoriesExplorer from './components/main/StoriesExplorer';
+import StoriesExplorer from './components/content/InitStory';
 import StoryReader from './components/main/StoryReader';
 import ProfilePage from './components/profile/ProfilePage';
 import InitStory from './components/content/InitStory';

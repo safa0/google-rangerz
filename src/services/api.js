@@ -80,9 +80,9 @@ export const realInitializeStory = async (userData) => {
     const requestData = {
       name: userData.name || "John Doe",
       age: userData.age || 10,
-      skill_level: userData.skill_level || "beginner",
+      skill_level: "beginner",
       interests: userData.interests || ["hiking", "camping", "fishing"],
-      model: userData.model || "gemini-2.0-flash-lite-001"
+      model: "gemini-2.0-flash-lite-001"
     };
     
     console.log('📚 Sending request to initialize_story:', requestData);
@@ -127,71 +127,68 @@ export const continueStory = async (storyData) => {
 // Function to properly parse the initialize_story response
 function parseApiResponse(apiResponse) {
   console.log('📚 Parsing API response type:', typeof apiResponse);
+
+  const output = apiResponse.candidates[0].content.parts[0].text
+
+  // Clean up the response - remove triple backticks and extra newlines
+  let cleanedResponse = output;
   
-  console.log(apiResponse.candidates)
-  // Check if the response is a string
-  if (typeof apiResponse === 'string') {
-    // Clean up the response - remove triple backticks and extra newlines
-    console.log("YOOO")
-    let cleanedResponse = apiResponse;
-    
-    // Remove surrounding backticks if present
-    if (cleanedResponse.startsWith('```') && cleanedResponse.endsWith('```')) {
-      cleanedResponse = cleanedResponse.substring(3, cleanedResponse.length - 3);
+  // Remove surrounding backticks if present
+  if (cleanedResponse.startsWith('```') && cleanedResponse.endsWith('```')) {
+    cleanedResponse = cleanedResponse.substring(3, cleanedResponse.length - 3);
+  }
+  
+  // Remove any leading/trailing whitespace
+  cleanedResponse = cleanedResponse.trim();
+  
+  console.log('📚 Cleaned response (first 100 chars):', cleanedResponse.substring(0, 100) + '...');
+  
+  try {
+    // Extract title tags using regex that supports multiline content
+    const titleRegex = /<title>([\s\S]*?)<\/title>/g;
+    const titles = [];
+    let titleMatch;
+    while ((titleMatch = titleRegex.exec(cleanedResponse)) !== null) {
+      titles.push(titleMatch[1].trim());
     }
     
-    // Remove any leading/trailing whitespace
-    cleanedResponse = cleanedResponse.trim();
+    // Extract txt tags
+    const txtRegex = /<txt>([\s\S]*?)<\/txt>/g;
+    const txts = [];
+    let txtMatch;
+    while ((txtMatch = txtRegex.exec(cleanedResponse)) !== null) {
+      txts.push(txtMatch[1].trim());
+    }
     
-    console.log('📚 Cleaned response (first 100 chars):', cleanedResponse.substring(0, 100) + '...');
+    // Extract img tags
+    const imgRegex = /<img>([\s\S]*?)<\/img>/g;
+    const imgDescriptions = [];
+    let imgMatch;
+    while ((imgMatch = imgRegex.exec(cleanedResponse)) !== null) {
+      imgDescriptions.push(imgMatch[1].trim());
+    }
     
-    try {
-      // Extract title tags using regex that supports multiline content
-      const titleRegex = /<title>([\s\S]*?)<\/title>/g;
-      const titles = [];
-      let titleMatch;
-      while ((titleMatch = titleRegex.exec(cleanedResponse)) !== null) {
-        titles.push(titleMatch[1].trim());
-      }
-      
-      // Extract txt tags
-      const txtRegex = /<txt>([\s\S]*?)<\/txt>/g;
-      const txts = [];
-      let txtMatch;
-      while ((txtMatch = txtRegex.exec(cleanedResponse)) !== null) {
-        txts.push(txtMatch[1].trim());
-      }
-      
-      // Extract img tags
-      const imgRegex = /<img>([\s\S]*?)<\/img>/g;
-      const imgDescriptions = [];
-      let imgMatch;
-      while ((imgMatch = imgRegex.exec(cleanedResponse)) !== null) {
-        imgDescriptions.push(imgMatch[1].trim());
-      }
-      
-      console.log('📚 Extracted data:', {
-        titles: titles,
-        txts: txts,
-        imgDescriptions: imgDescriptions
+    console.log('📚 Extracted data:', {
+      titles: titles,
+      txts: txts,
+      imgDescriptions: imgDescriptions
+    });
+    
+    // Create story objects
+    const stories = [];
+    for (let i = 0; i < Math.max(titles.length, txts.length, imgDescriptions.length); i++) {
+      stories.push({
+        title: titles[i] || `Story ${i+1}`,
+        txt: txts[i] || "No description available",
+        img_description: imgDescriptions[i] || "A placeholder image"
       });
-      
-      // Create story objects
-      const stories = [];
-      for (let i = 0; i < Math.max(titles.length, txts.length, imgDescriptions.length); i++) {
-        stories.push({
-          title: titles[i] || `Story ${i+1}`,
-          txt: txts[i] || "No description available",
-          img_description: imgDescriptions[i] || "A placeholder image"
-        });
-      }
-      
-      console.log('📚 Parsed stories:adjwajidjidjidjijiwd', stories);
-      return { stories };
-    } catch (err) {
-      console.error('❌ Error parsing API response:', err);
-      throw new Error('Failed to parse API response: ' + err.message);
     }
+    
+    console.log('📚 Parsed stories:adjwajidjidjidjijiwd', stories);
+    return { stories };
+  } catch (err) {
+    console.error('❌ Error parsing API response:', err);
+    throw new Error('Failed to parse API response: ' + err.message);
   }
  
 }

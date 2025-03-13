@@ -36,7 +36,7 @@ const Welcome = () => {
   const handleMockLogin = async (email) => {
     setIsLoading(true);
     setError('');
-
+    try {
       console.log("Attempting login/signup with email:", email, "isSignup:", isSignup);
       
       const name = email.split('@')[0]; // Get name from email for new users

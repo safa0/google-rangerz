@@ -3,21 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { realInitializeStory, generateImage} from '../../services/api';
 import './InitStory.css';
 
-const InitStory = () => {
+const InitStory = ({userData}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [storyOptions, setStoryOptions] = useState([]);
   const [useRealApi, setUseRealApi] = useState(true); // Default to real API
 
-  // Dummy user data for the API request - matches test_api.py format
-  const dummyUser = {
-    name: "John Doe",
-    age: 10,
-    skill_level: "beginner",
-    interests: ["hiking", "camping", "fishing"],
-    model: "gemini-2.0-flash-lite-001"
-  };
+  console.log(userData)
 
   useEffect(() => {
     // Fetch story options when component mounts
@@ -25,15 +18,10 @@ const InitStory = () => {
       console.log('🔄 InitStory: Fetching story options, useRealApi =', useRealApi);
       setLoading(true);
       try {
-          
-        const response = await realInitializeStory(dummyUser)
+        const response = await realInitializeStory(userData)
         console.log('🔄 InitStory: Received response:', response);
-        
-        if (response.stories && response.stories.length > 0) {
-          console.log(`🔄 InitStory: Found ${response.stories.length} stories`);
-          
-          // Create initial story cards without images
-          const initialStoryCards = response.stories.map((story, index) => ({
+        // Create initial story cards without images
+        const initialStoryCards = response.stories.map((story, index) => ({
             id: index + 1,
             title: story.title,
             description: story.txt,
@@ -76,10 +64,7 @@ const InitStory = () => {
           
           console.log('🔄 InitStory: All images fetched, updating cards');
           setStoryOptions(cardsWithImages);
-        } else {
-          console.error('❌ InitStory: No stories found in the response');
-          throw new Error("No stories found in the response");
-        }
+       
       } catch (err) {
         console.error('❌ InitStory: Error loading story options:', err);
         setError("Failed to load story options. Please try again.");
@@ -107,7 +92,7 @@ const InitStory = () => {
           storyImage: selectedStory.image,
           storyImgDescription: selectedStory.imgDescription,
           useRealApi: useRealApi,
-          userData: dummyUser // Pass user data for continuing the story
+          userData: userData // Pass user data for continuing the story
         } 
       });
     }
