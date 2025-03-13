@@ -55,29 +55,39 @@ function App() {
           credentials: 'include',
         });
         
+        if (!response.ok) {
+          throw new Error(`Server responded with status: ${response.status}`);
+        }
+        
         const data = await response.json();
         console.log("Login status response:", data);
         
         if (data.status === 'success') {
+          console.log(`User authenticated: isNewUser=${data.user.isNewUser}, onboardingCompleted=${data.user.onboardingCompleted}`);
           setUser(data.user);
           
           // If user has preferences, also load them
           if (data.userPreferences) {
-            console.log("Loaded user preferences:", data.userPreferences);
+            console.log("App: Loaded user preferences:", data.userPreferences);
+            
+            // Update userData with preferences from API
             setUserData(prevData => ({
               ...prevData,
               interests: data.userPreferences.interests || [],
               childAge: data.userPreferences.age,
               character: data.userPreferences.character
             }));
+            
+            console.log("App: Updated userData with interests:", data.userPreferences.interests);
+          } else {
+            console.log("App: No user preferences found in API response");
           }
         } else {
-          // Clear user if not authenticated
+          console.log("User not authenticated");
           setUser(null);
         }
       } catch (error) {
         console.error('Error checking login status:', error);
-        // Clear user on error
         setUser(null);
       } finally {
         setLoading(false);
@@ -88,9 +98,37 @@ function App() {
     checkLoginStatus();
   }, []);
 
-  const login = (userData) => {
+  const login = async (userData) => {
     console.log("Setting user data in login function:", userData);
     setUser(userData);
+    
+    // After login, fetch the full user data including preferences
+    try {
+      console.log("Fetching user preferences after login...");
+      const response = await fetch('http://localhost:5000/api/auth/user', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log("User data response after login:", data);
+      
+      if (data.status === 'success' && data.userPreferences) {
+        console.log("Got user preferences after login:", data.userPreferences);
+        setUserData(prevData => ({
+          ...prevData,
+          interests: data.userPreferences.interests || [],
+          childAge: data.userPreferences.age,
+          character: data.userPreferences.character
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching user preferences after login:', error);
+    }
   };
 
   const logout = async () => {
@@ -101,6 +139,22 @@ function App() {
         credentials: 'include',
       });
       setUser(null);
+      // Clear userData on logout
+      setUserData({
+        userType: '',
+        childName: '',
+        childAge: '',
+        character: '',
+        interests: [],
+        joinDate: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' }),
+        stats: {
+          currentStreak: 0,
+          longestStreak: 0,
+          totalXP: 0,
+          storiesCompletedToday: 0,
+          totalStoriesCompleted: 0
+        }
+      });
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {
@@ -109,7 +163,12 @@ function App() {
   };
 
   const updateUserData = (newData) => {
-    setUserData(prevData => ({ ...prevData, ...newData }));
+    console.log("Updating user data:", newData);
+    setUserData(prevData => {
+      const updatedData = { ...prevData, ...newData };
+      console.log("New userData state:", updatedData);
+      return updatedData;
+    });
   };
 
   const updateUserStats = (stats) => {
@@ -123,7 +182,7 @@ function App() {
   };
   
   // Define protected route component
-  const ProtectedRoute = ({ children }) => {
+  const ProtectedRoute = ({ children, requireOnboarding = false }) => {
     if (!authInitialized) {
       return <div className="loading">Initializing app...</div>;
     }
@@ -137,6 +196,13 @@ function App() {
       return <Navigate to="/" replace />;
     }
     
+    // If this route requires completed onboarding but user hasn't completed it
+    if (!requireOnboarding && (user.isNewUser || !user.onboardingCompleted)) {
+      console.log("User needs onboarding, redirecting to onboarding flow");
+      return <Navigate to="/who-is-learning" replace />;
+    }
+    
+    // All conditions pass, render the protected content
     return children;
   };
 
@@ -157,13 +223,15 @@ function App() {
         <div className="app">
           <Routes>
             <Route path="/" element={<Welcome />} />
+            
+            {/* Onboarding Routes */}
             <Route path="/who-is-learning" element={<WhoIsLearning updateUserData={updateUserData} />} />
             <Route path="/child-name" element={<ChildName updateUserData={updateUserData} userData={userData} />} />
             <Route path="/child-age" element={<ChildAge updateUserData={updateUserData} userData={userData} />} />
             <Route path="/character-selection" element={<CharacterSelection updateUserData={updateUserData} userData={userData} />} />
             <Route path="/interest-selection" element={<InterestSelection updateUserData={updateUserData} userData={userData} />} />
             
-            {/* Protected routes */}
+            {/* Protected routes (require completed onboarding) */}
             <Route path="/stories" element={
               <ProtectedRoute>
                 <StoriesExplorer userData={userData} />
@@ -180,8 +248,7 @@ function App() {
               </ProtectedRoute>
             } />
             
-            {/* InitStory route removed due to missing component */}
-            
+            {/* Catch all undefined routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
