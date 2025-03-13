@@ -5,29 +5,48 @@ const ReadingComponent = ({ imageUrl, text, onNext }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const [displayedTextLength, setDisplayedTextLength] = useState(0);
   
   useEffect(() => {
     // Sequentially animate elements
-    let imageTimer, textTimer, buttonTimer;
+    let imageTimer, textTimer;
     
     imageTimer = setTimeout(() => {
       setIsImageLoaded(true);
       
       textTimer = setTimeout(() => {
         setIsTextVisible(true);
-        
-        buttonTimer = setTimeout(() => {
-          setIsButtonVisible(true);
-        }, 500);
       }, 500);
     }, 300);
     
     return () => {
       clearTimeout(imageTimer);
       clearTimeout(textTimer);
-      clearTimeout(buttonTimer);
     };
   }, []);
+  
+  // Reset text animation when text changes
+  useEffect(() => {
+    setDisplayedTextLength(0);
+    setIsButtonVisible(false);
+  }, [text]);
+  
+  // Text streaming effect
+  useEffect(() => {
+    if (!isTextVisible || displayedTextLength >= text.length) {
+      if (isTextVisible && displayedTextLength >= text.length) {
+        // Show button after text is fully displayed
+        setTimeout(() => setIsButtonVisible(true), 300);
+      }
+      return;
+    }
+    
+    const typingTimer = setTimeout(() => {
+      setDisplayedTextLength(prev => prev + 1);
+    }, 20); // Adjust typing speed here (lower = faster)
+    
+    return () => clearTimeout(typingTimer);
+  }, [displayedTextLength, text, isTextVisible]);
   
   return (
     <div className="story-component reading-component">
@@ -37,13 +56,13 @@ const ReadingComponent = ({ imageUrl, text, onNext }) => {
           alt="Story illustration"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = 'https://via.placeholder.com/400x300?text=Story+Scene';
+            e.target.src = 'https://placehold.co/600x400';
           }}
         />
       </div>
       
-      <div className={`story-text-container ${isTextVisible ? 'slide-up' : ''}`}>
-        <p className="story-text">{text}</p>
+      <div className={`story-text-container ${isTextVisible ? 'scale-in' : ''}`}>
+        <p className="story-text">{text.substring(0, displayedTextLength)}</p>
       </div>
       
       <button 
