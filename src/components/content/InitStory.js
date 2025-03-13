@@ -133,22 +133,24 @@ const InitStory = ({userData}) => {
             className="story-card"
             onClick={() => handleCardClick(card.id)}
           >
-            <div className="card-image-container">
+            <div className="card-square">
               {card.imageLoading ? (
                 <div className="image-loading">Loading image...</div>
               ) : card.imageError ? (
                 <div className="image-error">Image could not be loaded</div>
               ) : (
-                <img 
-                  src={card.image} 
-                  alt={card.title} 
-                  className="story-card-image"
-                />
+                <>
+                  <img 
+                    src={card.image} 
+                    alt={card.title} 
+                    className="story-card-image"
+                  />
+                  <div className="card-overlay">
+                    <h2>{card.title}</h2>
+                    <p>{card.description}</p>
+                  </div>
+                </>
               )}
-            </div>
-            <div className="card-content">
-              <h2>{card.title}</h2>
-              <p>{card.description}</p>
             </div>
           </div>
         ))}
