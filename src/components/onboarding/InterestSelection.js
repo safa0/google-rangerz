@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const InterestSelection = ({ updateUserData, userData }) => {
   const navigate = useNavigate();
-  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState(userData.interests || []);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  // If userData.interests changes (e.g., loaded after component mount), update selectedInterests
+  useEffect(() => {
+    if (userData.interests && userData.interests.length > 0) {
+      console.log("Loading user interests from userData:", userData.interests);
+      setSelectedInterests(userData.interests);
+    }
+  }, [userData.interests]);
 
   // Mock interests data
   const interests = [
@@ -32,8 +41,39 @@ const InterestSelection = ({ updateUserData, userData }) => {
     });
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    // Update local state first
     updateUserData({ interests: selectedInterests });
+    
+    // Save to server
+    try {
+      console.log("Saving interests to server:", selectedInterests);
+      
+      const response = await fetch('http://localhost:5000/api/user/complete-onboarding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          interests: selectedInterests,
+          age: userData.childAge || 10, // Default age if not set
+          skillLevel: 'beginner', // Default skill level
+          character: userData.character || 'owl' // Default character
+        }),
+        credentials: 'include', // Important for cookies/session
+      });
+
+      const data = await response.json();
+      console.log("Server response:", data);
+      
+      if (data.status !== 'success') {
+        console.error("Failed to save preferences:", data.message);
+      }
+    } catch (error) {
+      console.error("Error saving preferences:", error);
+    }
+    
+    // Navigate to next screen regardless of success/failure to not block the user
     navigate('/stories');
   };
 
@@ -46,8 +86,8 @@ const InterestSelection = ({ updateUserData, userData }) => {
   const isForSelf = userData.userType === 'myself';
   const title = isForSelf 
     ? 'Välj några intressen' 
-    : `Välj intressen för ${userData.childName}`;
-  const subtitle = 'Välj minst 3. Vi skapar några särskilda läslektioner baserat på detta.';
+    : `Välj intressen för ${userData.childName || 'ditt barn'}`;
+  const subtitle = 'Välj minst 3. Vi skapar särskilda läslektioner baserat på detta.';
 
   return (
     <div className="onboarding-container">
@@ -103,12 +143,17 @@ const InterestSelection = ({ updateUserData, userData }) => {
       </div>
 
       <div className="button-container">
+        {selectedInterests.length < 3 && (
+          <p style={{ textAlign: 'center', color: '#FF5722', marginBottom: '10px' }}>
+            Välj minst {3 - selectedInterests.length} intressen till
+          </p>
+        )}
         <button
           className="primary-button"
-          disabled={selectedInterests.length < 3}
+          disabled={selectedInterests.length < 3 || isSaving}
           onClick={handleContinue}
         >
-          FORTSÄTT
+          {isSaving ? 'SPARAR...' : 'FORTSÄTT'}
         </button>
       </div>
     </div>

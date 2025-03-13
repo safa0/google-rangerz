@@ -26,6 +26,8 @@ const CharacterSelection = ({ updateUserData, userData }) => {
   };
 
   const handleContinue = () => {
+    // Store selected character in local state
+    console.log("Selected character:", selectedCharacter);
     updateUserData({ character: selectedCharacter });
     navigate('/interest-selection');
   };

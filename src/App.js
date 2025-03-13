@@ -43,28 +43,41 @@ function App() {
   });
 
   // Check if user is logged in when app loads
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/auth/user', {
-          method: 'GET',
-          credentials: 'include',
-        });
+  // Check if user is logged in when app loads
+ // Check if user is logged in when app loads
+ useEffect(() => {
+  const checkLoginStatus = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/user', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        setUser(data.user);
         
-        const data = await response.json();
-        
-        if (data.status === 'success') {
-          setUser(data.user);
+        // If user has preferences, also load them
+        if (data.userPreferences) {
+          console.log("Loaded user preferences:", data.userPreferences);
+          setUserData(prevData => ({
+            ...prevData,
+            interests: data.userPreferences.interests || [],
+            childAge: data.userPreferences.age,
+            character: data.userPreferences.character
+          }));
         }
-      } catch (error) {
-        console.error('Error checking login status:', error);
-      } finally {
-        setLoading(false);
       }
-    };
-    
-    checkLoginStatus();
-  }, []);
+    } catch (error) {
+      console.error('Error checking login status:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  checkLoginStatus();
+}, []);
 
   const login = (userData) => {
     setUser(userData);
