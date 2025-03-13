@@ -99,9 +99,9 @@
   }
   
   .option-button.correct {
-    background-color: #4CAF50;
+    background-color: #000080;
     color: white;
-    border-color: #4CAF50;
+    border-color: #000080;
     animation: pulse 0.5s ease;
   }
   
@@ -260,7 +260,7 @@
   }
   
   .accuracy-box {
-    background-color: #4CAF50;
+    background-color: #000080;
     color: white;
   }
   

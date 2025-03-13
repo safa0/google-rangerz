@@ -1,4 +1,4 @@
-/* Global styles */
+/* Global styles with Swedish theme */
 * {
   margin: 0;
   padding: 0;
@@ -10,11 +10,22 @@
   /* Swedish flag colors */
   --swedish-blue: #006AA7;
   --swedish-yellow: #FECC02;
-  --primary-color: #58CC02;
-  --secondary-color: #FFC800;
+  
+  /* Complementary colors */
+  --swedish-dark-blue: #004B76;
+  --swedish-light-blue: #4A9FD8;
+  --swedish-gold: #FFD54F;
+  --swedish-light-yellow: #FFF176;
+  
+  /* Neutrals */
   --text-color: #4B4B4B;
   --light-gray: #F0F0F0;
   --white: #FFFFFF;
+  
+  /* Functional assignments (replacing the green) */
+  --primary-color: var(--swedish-blue);
+  --secondary-color: var(--swedish-yellow);
+  --accent-color: var(--swedish-light-blue);
 }
 
 body {
@@ -51,7 +62,7 @@ body {
   background: none;
   border: none;
   font-size: 24px;
-  color: #4b90e2;
+  color: var(--swedish-light-blue);
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -81,6 +92,7 @@ body {
   font-weight: bold;
   margin: 12px 0;
   text-align: center;
+  color: var(--swedish-dark-blue);
 }
 
 .onboarding-subtitle {
@@ -115,7 +127,7 @@ body {
 }
 
 .primary-button:hover:not(:disabled) {
-  background-color: #4aa700;
+  background-color: var(--swedish-dark-blue);
 }
 
 .option-list {
@@ -144,7 +156,7 @@ body {
 }
 
 .option-button.selected {
-  background-color: rgba(88, 204, 2, 0.1);
+  background-color: rgba(0, 106, 167, 0.1); /* Swedish blue with opacity */
 }
 
 .option-icon {
@@ -338,10 +350,13 @@ body {
   width: 120px;
   height: 120px;
   margin-bottom: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--secondary-color); /* Swedish yellow for the logo background */
 }
 
 .app-name {
-  color: var(--primary-color);
+  color: var(--text-color);
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 16px;
@@ -396,6 +411,11 @@ body {
   border: none;
 }
 
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .login-icon {
-  margin-right: 12px;
+  margin-right: 12px;
 }

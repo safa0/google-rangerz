@@ -101,14 +101,15 @@ const Welcome = () => {
   if (isAuthenticated && !loading && user && !user.isNewUser && user.onboardingCompleted) {
     return <div className="loading">Redirecting to stories...</div>;
   }
+  const logoImage = '/assests/images/lexi_ai.jpg';
 
   return (
     <div className="welcome-container">
       <div className="welcome-logo">
         <img 
-          src="/logo.svg" 
+          src={logoImage}    
           alt="Svenska Ugglan" 
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', borderRadius : '50%', objectFit : 'cover', objectPosition : 'center', filter : 'brightness (50%)', }}
           onError={(e) => {
             e.target.onerror = null;
             // Fallback to a colored div with text if image fails to load
@@ -122,10 +123,10 @@ const Welcome = () => {
       </div>
       
       <h1 className="app-name">
-        Svenska <span className="app-name-highlight">Ugglan</span>
+        Lexi <span className="app-name-highlight">Ai</span>
       </h1>
       
-      <p className="welcome-tagline">Lär dig svenska gratis</p>
+      <p className="welcome-tagline">Skapa din saga</p>
       
       {error && (
         <div className="error-message" style={{ color: 'red', marginBottom: '20px' }}>
