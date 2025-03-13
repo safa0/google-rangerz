@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
 
 // Components
@@ -189,7 +190,7 @@ function App() {
     }
     
     if (loading) {
-      return <div className="loading">Loading...</div>;
+      return <div>Loading...</div>;
     }
     
     if (!user) {
@@ -211,6 +212,11 @@ function App() {
   if (!authInitialized) {
     return <div className="app-loading">Loading application...</div>;
   }
+
+  // Allow direct access to InitStory
+  const InitStoryRoute = ({ children }) => {
+    return children;
+  };
 
   return (
     <AuthContext.Provider value={{ 
@@ -249,14 +255,7 @@ function App() {
               </ProtectedRoute>
             } />
        
-            {/* Add the InitStory route */}
-            <Route path="/init-story" element={
-              <ProtectedRoute>
-                <InitStory />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
       </Router>

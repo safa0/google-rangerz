@@ -1,1 +1,25 @@
- 
+.bypass-login-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.bypass-login-button {
+  background-color: #f0f0f0;
+  color: #666;
+  border: 1px dashed #ccc;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.bypass-login-button:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.bypass-login-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+} 
