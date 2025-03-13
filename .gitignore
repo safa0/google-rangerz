@@ -46,11 +46,11 @@ env.bak/
 venv.bak/
 
 # Database files
-*.db
-*.sqlite
-*.sqlite3
-users.db
-test_users.db
+# *.db
+# *.sqlite
+# *.sqlite3
+# users.db
+# test_users.db
 
 # IDE specific files
 .idea/
