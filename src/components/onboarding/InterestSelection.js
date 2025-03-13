@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../App';
 
 const InterestSelection = ({ updateUserData, userData }) => {
   const navigate = useNavigate();
-  const [selectedInterests, setSelectedInterests] = useState([]);
+  const { login } = useContext(AuthContext); // Get the login function from context
+  const [selectedInterests, setSelectedInterests] = useState(userData.interests || []);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Mock interests data
+  // If userData.interests changes (e.g., loaded after component mount), update selectedInterests
+  useEffect(() => {
+    if (userData.interests && userData.interests.length > 0) {
+      console.log("Loading user interests from userData:", userData.interests);
+      setSelectedInterests(userData.interests);
+    }
+  }, [userData.interests]);
+
+  // Mock interests data - in a real app this would come from an API
   const interests = [
     { id: 'animals', name: 'Djur', imageUrl: '', color: '#8BC34A' },
     { id: 'space', name: 'Rymden', imageUrl: '', color: '#3F51B5' },
@@ -24,17 +37,101 @@ const InterestSelection = ({ updateUserData, userData }) => {
 
   const toggleInterest = (interestId) => {
     setSelectedInterests(prev => {
-      if (prev.includes(interestId)) {
-        return prev.filter(id => id !== interestId);
-      } else {
-        return [...prev, interestId];
-      }
+      const newInterests = prev.includes(interestId)
+        ? prev.filter(id => id !== interestId)
+        : [...prev, interestId];
+      
+      console.log("InterestSelection: Updated interests:", newInterests);
+      return newInterests;
     });
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    // Clear any previous errors
+    setError('');
+    setSaveSuccess(false);
+    setIsSaving(true);
+    
+    console.log("InterestSelection: Saving interests to local state:", selectedInterests);
+    
+    // Update local state first
     updateUserData({ interests: selectedInterests });
-    navigate('/stories');
+    
+    // Save to server
+    try {
+      console.log("InterestSelection: Saving interests to server:", selectedInterests);
+      
+      const requestBody = {
+        interests: selectedInterests,
+        age: userData.childAge || 10, // Default age if not set
+        skillLevel: 'beginner', // Default skill level
+        character: userData.character || 'owl' // Default character
+      };
+      
+      console.log("InterestSelection: Complete request body:", requestBody);
+      
+      const response = await fetch('http://localhost:5000/api/user/complete-onboarding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+        credentials: 'include', // Important for cookies/session
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("InterestSelection: Server response:", data);
+      
+      if (data.status === 'success') {
+        console.log("InterestSelection: Interests saved successfully");
+        setSaveSuccess(true);
+        
+        // Now get updated user data with onboardingCompleted flag set to true
+        try {
+          console.log("Fetching updated user data...");
+          const userResponse = await fetch('http://localhost:5000/api/auth/user', {
+            method: 'GET',
+            credentials: 'include',
+          });
+          
+          if (!userResponse.ok) {
+            throw new Error(`Failed to get updated user data: ${userResponse.status}`);
+          }
+          
+          const userData = await userResponse.json();
+          console.log("Updated user data:", userData);
+          
+          if (userData.status === 'success') {
+            // Update the user in context to reflect onboardingCompleted=true
+            login(userData.user);
+            
+            // Wait a moment to show success message, then navigate
+            setTimeout(() => {
+              // Use replace:true to prevent going back to the onboarding flow 
+              // if the user presses the back button
+              navigate('/stories', { replace: true });
+            }, 1000);
+          }
+        } catch (error) {
+          console.error("Error fetching updated user data:", error);
+          // Navigate anyway as a fallback
+          setTimeout(() => {
+            navigate('/stories', { replace: true });
+          }, 1000);
+        }
+      } else {
+        setError(`Failed to save preferences: ${data.message || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error("Error saving preferences:", error);
+      setError(`Failed to save preferences: ${error.message || 'Network error'}`);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Filter interests based on search query
@@ -46,8 +143,8 @@ const InterestSelection = ({ updateUserData, userData }) => {
   const isForSelf = userData.userType === 'myself';
   const title = isForSelf 
     ? 'Välj några intressen' 
-    : `Välj intressen för ${userData.childName}`;
-  const subtitle = 'Välj minst 3. Vi skapar några särskilda läslektioner baserat på detta.';
+    : `Välj intressen för ${userData.childName || 'ditt barn'}`;
+  const subtitle = 'Välj minst 3. Vi skapar särskilda läslektioner baserat på detta.';
 
   return (
     <div className="onboarding-container">
@@ -103,12 +200,30 @@ const InterestSelection = ({ updateUserData, userData }) => {
       </div>
 
       <div className="button-container">
+        {selectedInterests.length < 3 && (
+          <p style={{ textAlign: 'center', color: '#FF5722', marginBottom: '10px' }}>
+            Välj minst {3 - selectedInterests.length} intressen till
+          </p>
+        )}
+        
+        {error && (
+          <p style={{ textAlign: 'center', color: '#FF5722', marginBottom: '10px' }}>
+            {error}
+          </p>
+        )}
+        
+        {saveSuccess && (
+          <p style={{ textAlign: 'center', color: '#4CAF50', marginBottom: '10px' }}>
+            Intressen sparade! Dirigerar om till sagor...
+          </p>
+        )}
+        
         <button
           className="primary-button"
-          disabled={selectedInterests.length < 3}
+          disabled={selectedInterests.length < 3 || isSaving}
           onClick={handleContinue}
         >
-          FORTSÄTT
+          {isSaving ? 'SPARAR...' : 'FORTSÄTT'}
         </button>
       </div>
     </div>

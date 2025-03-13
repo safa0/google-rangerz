@@ -12,8 +12,14 @@ import datetime
 from init_db import init_db
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+# Improved CORS configuration with origin explicitly set
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"], methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 app.secret_key = secrets.token_hex(16)  # Generate a random secret key
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Set to Lax to allow redirects with cookies
+
+# Configure longer session lifetime
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=7)  # 7 days
 
 @app.route('/')
 def index():
@@ -114,6 +120,8 @@ def mock_google_login():
                 'message': 'Email is required'
             }), 400
         
+        print(f"Mock Google login: email={email}, is_signup={is_signup}")
+        
         # Generate a mock user ID (in production this would come from Google)
         # Using the email to ensure the same user gets the same ID
         userid = str(uuid.uuid5(uuid.NAMESPACE_DNS, email))
@@ -130,23 +138,32 @@ def mock_google_login():
         
         if existing_user:
             # User exists
+            print(f"User exists: {existing_user}")
             is_new = False
-            onboarding_completed = existing_user[2] if existing_user[2] is not None else False
-            name = existing_user[1]  # Get existing name
             
-            # Update the user's last login time
-            cursor.execute('''
-            UPDATE users 
-            SET last_login = ?
-            WHERE id = ?
-            ''', (current_timestamp, userid))
-            
-            # If it's a signup request but user exists, we'll just log them in
+            # If this is a sign-up attempt but user exists, we still set onboarding as needed
             if is_signup:
-                # Maybe we could add a message about existing account, but for simplicity we'll just log them in
-                pass
+                print("Sign-up attempt for existing user - marking as needing onboarding")
+                cursor.execute('''
+                UPDATE users 
+                SET is_new_user = 1, onboarding_completed = 0, last_login = ?
+                WHERE id = ?
+                ''', (current_timestamp, userid))
+                is_new = True
+                onboarding_completed = False
+            else:
+                # Regular login - keep existing onboarding status
+                onboarding_completed = bool(existing_user[3]) if existing_user[3] is not None else False
+                cursor.execute('''
+                UPDATE users 
+                SET last_login = ?
+                WHERE id = ?
+                ''', (current_timestamp, userid))
+            
+            name = existing_user[1]  # Get existing name
         else:
             # New user - generate a default name from email
+            print(f"Creating new user for email: {email}")
             is_new = True
             onboarding_completed = False
             name = email.split('@')[0]  # Use part before @ as default name
@@ -166,9 +183,17 @@ def mock_google_login():
         # Get user data from database to return
         cursor.execute('SELECT id, email, name, picture, is_new_user, onboarding_completed FROM users WHERE id = ?', (userid,))
         user = cursor.fetchone()
+        
+        # Get user preferences if they exist
+        cursor.execute('SELECT interests, age, skill_level, character FROM user_preferences WHERE user_id = ?', (userid,))
+        preferences = cursor.fetchone()
+        
         conn.close()
         
         if user:
+            # Make session permanent to last longer
+            session.permanent = True
+            
             user_data = {
                 'id': user[0],
                 'email': user[1],
@@ -180,11 +205,27 @@ def mock_google_login():
             
             # Store user ID in session
             session['user_id'] = userid
+            print(f"Session created for user: {userid}, isNewUser: {user_data['isNewUser']}, onboardingCompleted: {user_data['onboardingCompleted']}")
             
-            return jsonify({
+            response_data = {
                 'status': 'success',
                 'user': user_data
-            })
+            }
+            
+            # Include preferences if available
+            if preferences:
+                try:
+                    user_preferences = {
+                        'interests': json.loads(preferences[0]) if preferences[0] else [],
+                        'age': preferences[1],
+                        'skill_level': preferences[2],
+                        'character': preferences[3]
+                    }
+                    response_data['userPreferences'] = user_preferences
+                except Exception as e:
+                    print(f"Error parsing preferences: {e}")
+            
+            return jsonify(response_data)
         else:
             return jsonify({
                 'status': 'error',
@@ -241,6 +282,7 @@ def google_login():
             }
             
             # Store user ID in session
+            session.permanent = True
             session['user_id'] = userid
             
             return jsonify({
@@ -275,6 +317,8 @@ def logout():
 def get_user():
     # Check if user is logged in
     user_id = session.get('user_id')
+    print(f"Checking user session: {user_id}")
+    
     if not user_id:
         return jsonify({
             'status': 'error',
@@ -286,10 +330,15 @@ def get_user():
     cursor = conn.cursor()
     cursor.execute('SELECT id, email, name, picture, is_new_user, onboarding_completed FROM users WHERE id = ?', (user_id,))
     user = cursor.fetchone()
+    
+    # Get user preferences if they exist
+    cursor.execute('SELECT interests, age, skill_level, character FROM user_preferences WHERE user_id = ?', (user_id,))
+    preferences = cursor.fetchone()
+    
     conn.close()
     
     if user:
-        return jsonify({
+        response_data = {
             'status': 'success',
             'user': {
                 'id': user[0],
@@ -299,7 +348,22 @@ def get_user():
                 'isNewUser': bool(user[4]) if user[4] is not None else True,
                 'onboardingCompleted': bool(user[5]) if user[5] is not None else False
             }
-        })
+        }
+        
+        # Include preferences if available
+        if preferences:
+            try:
+                user_preferences = {
+                    'interests': json.loads(preferences[0]) if preferences[0] else [],
+                    'age': preferences[1],
+                    'skill_level': preferences[2],
+                    'character': preferences[3]
+                }
+                response_data['userPreferences'] = user_preferences
+            except Exception as e:
+                print(f"Error parsing preferences: {e}")
+        
+        return jsonify(response_data)
     else:
         session.pop('user_id', None)  # Clear invalid session
         return jsonify({
@@ -349,11 +413,18 @@ def complete_onboarding():
         })
         
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({
             'status': 'error',
             'message': f'Server error: {str(e)}'
         }), 500
 
+# Add a health check endpoint
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'healthy'})
+
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True, port=5000) 
+    app.run(debug=True, port=5000)
