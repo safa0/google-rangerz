@@ -11,6 +11,7 @@ const StoryReader = ({ userData, updateUserStats }) => {
   const navigate = useNavigate();
   const { storyId } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentStage, setCurrentStage] = useState(0);
   const [score, setScore] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [startTime, setStartTime] = useState(null);
@@ -79,7 +80,13 @@ const StoryReader = ({ userData, updateUserStats }) => {
 
       setCurrentPage(prev => prev + 1);
     } else {
-      setCurrentPage(prev => prev + 1);
+      if (currentStage === 2) {
+        setCurrentStage(0);
+        setCurrentPage(prev => prev + 1);
+      }
+      else {
+        setCurrentStage(prev => prev + 1);
+      }
     }
   };
 
@@ -131,26 +138,30 @@ const StoryReader = ({ userData, updateUserStats }) => {
     }
 
     const page = storyData.pages[currentPage];
+    const current_stage_page = page[currentStage];
 
-    switch (page.type) {
+    console.log(currentPage);
+    console.log(currentStage);
+
+    switch (current_stage_page.type) {
       case 'intro':
         return (
           <div className="story-intro">
             <div className="story-cover">
-              <img src={page.imageUrl} alt={page.title} />
+              <img src={current_stage_page.imageUrl} alt={current_stage_page.title} />
             </div>
-            <h2 className="story-title">{page.title}</h2>
+            <h2 className="story-title">{current_stage_page.title}</h2>
             <button className="story-start-button" onClick={() => handleNext(true)}>
               <span className="arrow-icon">→</span>
             </button>
           </div>
         );
       case 'reading':
-        return <ReadingComponent imageUrl={page.imageUrl} text={page.text} onNext={() => handleNext(true)} />;
+        return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} onNext={() => handleNext(true)} />;
       case 'fillBlank':
-        return <FillBlankComponent imageUrl={page.imageUrl} text={page.text} options={page.options} correctAnswer={page.correctAnswer} onNext={handleNext} />;
+        return <FillBlankComponent text={current_stage_page.text} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
       case 'comprehension':
-        return <ComprehensionComponent imageUrl={page.imageUrl} question={page.question} options={page.options} correctAnswer={page.correctAnswer} onNext={handleNext} />;
+        return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
     }
