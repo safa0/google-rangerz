@@ -1,0 +1,17 @@
+```
+<img>
+Inside the ghostly house, the three friends stand in a dimly lit hallway. Dust motes dance in the single ray of light that filters through a cracked window. John, his face determined, holds a flickering candle, casting eerie shadows on the peeling wallpaper. The girl clutches her chest, eyes wide with fear, while the boy with glasses nervously adjusts his spectacles. The hallway stretches into darkness, with closed doors on either side. The floorboards creak ominously under their feet.
+</img>
+<txt>
+John, flickan och pojken med glasögonen stod i den [mörka](dark) [hallen](hall). "Vi måste vara [försiktiga](careful)," sa John. Hans röst [ekade](echoed) i det [tysta](silent) huset. Dörrarna runt omkring dem var [stängda](closed). "Låt oss utforska rummen," föreslog John. Han höll upp ljuset högre. Han ville hitta en [trollformel](spell), men han var också [rädd](scared). De andra nickade [långsamt](slowly). De var [rädda](scared) också. De började gå nerför [hallen](hall). John öppnade dörren till vänster.
+</txt>
+<opt>
+Vad ska de göra nu? [Utforska rummet] [Gå nerför hallen] [Läsa en bok]
+</opt>
+<exe>
+<q>Var var John?</q>
+[I ett spöklikt hus](rätt) [I ett bibliotek] [På en resa]
+<q>Vad höll John i handen?</q>
+[Ett ljus](rätt) [En bok] [En karta]
+</exe>
+```

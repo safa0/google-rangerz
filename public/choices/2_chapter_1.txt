@@ -1,0 +1,15 @@
+```
+<img>
+A group of young friends, John Singer and two others, are walking along a winding, overgrown path through a dark forest. The sun is setting, casting long shadows and an eerie orange glow. In the distance, a large, dilapidated house stands on a small hill, its windows dark and broken. The air is thick with mist, and the sounds of rustling leaves and distant crows create a sense of mystery and suspense. John Singer, wearing a backpack, looks determined, while his friends seem hesitant.
+</img>
+<txt>
+John Singer och hans [vänner](friends) var på en [resa](journey). De gick längs en [stig](path) genom en mörk [skog](forest). Himlen var mörk. De såg ett stort, gammalt [hus](house). Huset såg [spöklikt](ghostly) ut. Fönstren var trasiga. "Jag är inte rädd," sa John Singer. "Vi ska gå in!" Hans [vänner](friends) var [rädda](scared). Men de följde med John. De gick mot [huset](house). John kände en [känsla](feeling) av [äventyr](adventure). Skulle de våga gå in?
+</txt>
+<opt>
+Vad ska de göra? [Gå in i huset] [Gå runt huset] [Kalla på en [trollkarl](wizard)]
+</opt>
+<exe>
+<q>Vad såg de i fjärran?</q>
+[Ett stort hus](rätt) [Ett träd] [En flod]
+</exe>
+```

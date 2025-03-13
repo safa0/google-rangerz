@@ -1,0 +1,17 @@
+```
+<img>
+A young boy with messy brown hair and bright, curious blue eyes, wearing a slightly oversized tweed jacket, sits hunched over a large, ancient book in a dimly lit library. The book is open, revealing pages filled with strange symbols and handwritten text. Dust motes dance in a single ray of sunlight that streams through a high window, illuminating the scene. The boy's face is a mixture of excitement and apprehension. He clutches the book tightly, his knuckles white. Around him are towering shelves packed with books, creating a maze of shadows. The air is thick with the scent of old paper and leather.
+</img>
+<txt>
+John Singer öppnade boken. Sidorna var gjorda av pergament, och varje ord var skrivet med [guld](gold) bläck. Han läste de första raderna, och orden började [glöda](glow). Innan han visste ordet av, sög [magin](magic) i boken in honom. Han kände hur han [svävade](floated) genom luften, förbi hyllor av [böcker](books) och dammiga [kartor](maps). Plötsligt befann han sig i ett annat [slott](castle), mycket större och mer [mystiskt](mysterious) än det han hade sett i böckerna.
+</txt>
+<opt>
+Vad ska John göra nu? [Utforska slottet] [Leta efter en magisk trollformel] [Försöka återvända till biblioteket]
+</opt>
+<exe>
+<q>Vad var sidorna i boken gjorda av?</q>
+[Pergament](rätt) [Papper] [Trä]
+<q>Vad började orden i boken göra?</q>
+[Glöda](rätt) [Försvinna] [Flyga bort]
+</exe>
+```

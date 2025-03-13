@@ -1,0 +1,18 @@
+```
+<img>
+A moonlit cave entrance shrouded in mist. Two paths diverge at the mouth of the cave. The first path, a dark, winding [trail](path), disappears into a dense [forest](forest). The second path leads into the mouth of the cave, where mysterious shadows dance. John Singer, a 12-year-old boy with [brown](brown) hair, stands at the fork, [uncertain](unsure). He wears a [leather](leather) vest and carries a small, glowing [torch](torch). His friends, a girl with pigtails and a boy with [glasses](glasses), stand nervously behind him. The overall tone is [mysterious](mysterious) and [adventurous](adventurous).
+</img>
+<txt>
+John, flickan och pojken med [glasögon](glasses) stod framför den mörka [grottan](cave). Boken hade visat dem två [vägar](paths). En [väg](path) ledde in i en [skog](forest), den andra in i en [grotta](cave). De hade valt [grottan](cave). Grottans öppning var mörk, och en [dimma](mist) [svävade](hovered) runt den. [Månens](moon) ljus [lyste](shone) på [klipporna](rocks). John höll i sin [fackla](torch) och gick sakta mot [ingången](entrance). Han kände en blandning av [spänning](excitement) och [rädsla](fear). Vilka [hemligheter](secrets) dolde [grottan](cave)?
+</txt>
+<opt>
+Vad ska de göra? [Gå in i grottan] [Utforska skogen] [Kalla på en trollkarl]
+</opt>
+<exe>
+<exe>
+<q>Vad hade John i handen?</q>
+[En fackla](rätt) [En bok] [Ett svärd]
+<q>Vad såg de runt grottan?</q>
+[Dimma](rätt) [Snö] [Eld]
+</exe>
+```

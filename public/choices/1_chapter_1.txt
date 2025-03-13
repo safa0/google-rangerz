@@ -1,0 +1,17 @@
+```
+<img>
+A young boy with short brown hair, named John, is in a dimly lit library. Sunlight streams through a tall, arched window, illuminating floating dust motes. He wears a simple t-shirt and jeans, and his eyes are wide with curiosity. In front of him on a wooden desk sits a large, leather-bound book with intricate golden symbols etched on the cover. The book seems to glow faintly. The shelves around him are filled with towering stacks of ancient books, some of which are falling apart. The air is thick with the scent of old paper and leather. A sense of mystery and anticipation fills the scene.
+</img>
+<txt>
+John Singer älskade [magi](magic). En dag, medan han letade efter [äventyr](adventures) i biblioteket, upptäckte han något otroligt. Långt in i ett dammigt hörn, bakom högar av gamla böcker, hittade han en gammal, magisk bok. Omslaget var gjort av mörk [läder](leather) och dekorerat med mystiska [symboler](symbols). John kände en våg av [nyfikenhet](curiosity). Skulle han våga läsa den? Boken såg ut att innehålla hemligheterna till många kraftfulla [trollformler](spells)!
+</txt>
+<opt>
+Vad ska John göra? [Öppna boken] [Gå därifrån] [Kalla på en vän]
+</opt>
+<exe>
+<q>Vad hittade John i biblioteket?</q>
+[En magisk bok](rätt) [En leksak] [En penna]
+<q>Var fanns boken?</q>
+[I ett dammigt hörn](rätt) [På ett bord] [På golvet]
+</exe>
+```

@@ -1,0 +1,15 @@
+```
+<img>
+A young boy, John Singer, with messy brown hair and bright, curious blue eyes, sits at a large, wooden desk in a dimly lit library. The desk is covered in stacks of old books with leather covers and gold lettering. He is surrounded by towering bookshelves filled with countless volumes. In front of him lies the open, magical book with glowing gold letters on the pages. He reaches out a hesitant hand towards it, his expression a mix of excitement and apprehension. The room is filled with the soft glow of candlelight, casting long shadows across the room.
+</img>
+<txt>
+John öppnade boken. Sidorna var gjorda av [pergament](parchment), och varje ord var skrivet med [guld](gold) bläck. Han läste de första raderna. Orden började [glöda](glow). Han kände en [känsla](feeling) av [äventyr](adventure).
+</txt>
+<opt>
+Vad ska John göra? [Fortsätta läsa] [Stänga boken] [Kalla på en [trollkarl](wizard)]
+</opt>
+<exe>
+Fyll i luckorna:
+John kände en [___(magisk)] känsla.
+</exe>
+```
