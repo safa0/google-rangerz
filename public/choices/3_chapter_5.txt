@@ -1,0 +1,17 @@
+```
+<img>
+A dark and eerie cave entrance, shrouded in mist, looms before John, the girl, and the boy with glasses. The moon casts a pale light on the jagged rocks surrounding the opening. John, holding his torch high, is silhouetted against the dim light, his face a mixture of determination and fear. The girl and the boy stand close to him, their faces reflecting the flickering light of the torch, their expressions a mix of apprehension and excitement. The air is thick with an unnatural silence, and the mist seems to swirl ominously, hinting at the mysteries within the cave.
+</img>
+<txt>
+John, flickan och pojken med [glasögon](glasses) stod framför [grottan](cave). [Dimman](mist) [svävade](hovered) runt [ingången](entrance), som om den ville [gömma](hide) hemligheterna inuti. [Facklans](torch) [sken](glow) [lyste](shone) upp [klipporna](rocks) och gjorde [skuggorna](shadows) [långa](long) och [spöklika](ghostly). John tog ett djupt [andetag](breath). "Nu går vi," sa han, hans röst [vibrerade](vibrating) av [spänning](excitement) och [rädsla](fear). Han ledde vägen in i [grottan](cave).
+</txt>
+<opt>
+Vad händer nu? [Gå djupare in i grottan] [Sök efter en annan väg] [Vänta och lyssna]
+</opt>
+<exe>
+<exe>
+Fyll i luckorna:
+John höll sin [___(fackla)] högt.
+</exe>
+</exe>
+```

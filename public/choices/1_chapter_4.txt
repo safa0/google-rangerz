@@ -1,0 +1,14 @@
+```
+<img>
+A young boy with messy brown hair and bright, curious eyes stands in a grand, old library. Sunlight streams through tall, arched windows, illuminating dust motes dancing in the air. He wears a simple tunic and pants, and he's surrounded by towering shelves packed with books of all shapes and sizes. He is looking at a large, leather-bound book with golden clasps, its pages slightly open and glowing with a soft, ethereal light. The air is filled with an aura of magic and mystery. A few other books lie open on a nearby table.
+</img>
+<txt>
+John hade gått tillbaka till [biblioteket](library). Han såg på den [magiska](magical) boken. Den såg gammal och [mystisk](mysterious) ut. Han ville hitta en [trollformel](spell). Boken låg på ett [bord](table). John tog ett djupt andetag. Han kände en [känsla](feeling) av [äventyr](adventure). Skulle han läsa den?
+</txt>
+<opt>
+Vad vill John göra? [Öppna boken] [Gå till en annan del av biblioteket] [Lämna biblioteket]
+</opt>
+<exe>
+John såg [____(en) bok] på bordet.
+</exe>
+```

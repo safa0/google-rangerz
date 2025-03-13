@@ -1,0 +1,15 @@
+<img>
+A young boy with messy brown hair and bright blue eyes, wearing a dark blue cloak, stands at the end of a long, dimly lit hallway. The walls are made of rough, gray stone, and torches flicker in sconces, casting dancing shadows. The floor is made of cold, black stone tiles. Two closed, heavy wooden doors are visible along the hall. The air feels thick and heavy with a sense of mystery. The boy holds a small, tarnished brass key in his hand, his expression a mix of curiosity and apprehension.
+</img>
+<txt>
+John, flickan och pojken med glasögonen fortsatte nerför den [mörka](dark) [hallen](hall). De hörde ett svagt [eko](echo) från sina steg. Torches längs väggarna kastade [fladdrande](flickering) [skuggor](shadows). De såg två [stängda](closed) dörrar längs [hallen](hallen). Vilken dörr skulle de öppna? John kände en blandning av [rädsla](fear) och [äventyr](adventure). Han visste inte vad som väntade bakom dörrarna. Han var redo för [äventyr](adventure).
+</txt>
+<opt>
+Vad ska de göra? [Öppna dörren till vänster] [Öppna dörren till höger] [Gå tillbaka]
+</opt>
+<exe>
+<q>Vilka gick nerför hallen?</q>
+[John, flickan och pojken med glasögonen](rätt) [John och flickan] [John och pojken]
+<q>Vad hade de för sig i hallen?</q>
+[De letade efter en trollformel](rätt) [De sjöng en sång] [De åt lunch]
+</exe>

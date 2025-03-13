@@ -1,0 +1,14 @@
+```
+<img>
+A dramatic illustration of a group of three friends, John Singer, a boy with messy brown hair and glasses, a girl with long braided hair, and another boy with short hair, standing just inside the creaking, dark entrance of a haunted house at twilight. The house is old and dilapidated, with broken windows, overgrown ivy, and a shadowy, ominous appearance. Rain falls softly, reflecting the dim light from a single flickering street lamp in puddles on the muddy ground. John holds a torch, his face illuminated with a mix of excitement and fear. The girl looks apprehensive, her hand on John's arm, while the other boy clutches a worn book, his eyes wide with a mixture of fear and curiosity. A ghostly figure can be faintly seen in a window, adding to the eerie atmosphere. The overall tone is mysterious and suspenseful, highlighting the adventure they are about to embark on.
+</img>
+<txt>
+John Singer tog tag i dörrhandtaget. Det var [kallt](cold) och [fuktigt](damp). Han hörde ett [knarrande](creaking) ljud när han tryckte ner det. "Är du säker?" frågade flickan. Hon såg [rädd](scared) ut. Pojken med glasögonen nickade [långsamt](slowly). "Ja," sa John. "Vi måste gå in!" De tre vännerna klev in i det [mörka](dark) huset. Luften var [tung](heavy) och [dammtung](dusty). Lukten av [mögel](mold) och [gammalt](old) trä fyllde deras näsor. "Hallå?" ropade John. Hans röst [ekade](echoed) i det [tysta](silent) huset.
+</txt>
+<opt>
+Vad ska de göra nu? [Gå in i huset] [Ropa på en trollkarl igen] [Utforska rummen]
+</opt>
+<exe>
+John Singer tog tag i dörrhandtaget. Det var [___(kallt)] och [___(fuktigt)].
+</exe>
+```

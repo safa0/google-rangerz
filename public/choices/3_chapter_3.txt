@@ -1,0 +1,17 @@
+```
+<img>
+A dimly lit room inside an old house. John, a boy with messy brown hair and a determined look, stands in front of an open book on a wooden table. The book's pages glow with a faint, ethereal light. Sunlight streams in through a single window, illuminating dust motes dancing in the air. In the background, a girl with long, braided hair and a boy with glasses stand nervously, their faces a mixture of fear and excitement. The room is filled with shadows, and the air is thick with the scent of old paper and mystery. A single torch on the wall flickers, casting dancing shadows.
+</img>
+<txt>
+John öppnade boken. Sidorna var gjorda av [pergament](parchment), och varje ord var skrivet med [guld](gold) bläck. Han läste de första raderna. Orden började [glöda](glow). John kände en [känsla](feeling) av [äventyr](adventure). Han hörde ett svagt [sus](rustle) från sidorna i boken. Han såg att det stod om två [vägar](paths). En väg ledde till en [skog](forest), den andra till en [grotta](cave). Hans vänner såg på honom. Han var redo för [äventyr](adventure). Boken sa att de var på en [resa](journey). Vilken [väg](path) skulle de välja? Vilken [väg](path) skulle leda till [äventyret](adventure)?
+</txt>
+<opt>
+Vilken [väg](path) ska de välja? [Välja skogen] [Välja grottan]
+</opt>
+<exe>
+<q>Vad började orden i boken att göra?</q>
+[Glöda](rätt) [Flyga] [Prata]
+<q>Vad stod det om i boken?</q>
+[Två vägar](rätt) [Två trollkarlar] [Två hus]
+</exe>
+```

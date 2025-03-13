@@ -1,0 +1,17 @@
+```
+<img>
+A dark, shadowy forest at dusk. The sky is a deep purple, with a few stars beginning to twinkle. Two paths diverge in the foreground: one, to the left, is overgrown with thorny bushes and shrouded in mist, while the other, to the right, appears smoother and better lit by a distant, faint light. John Singer, a 12-year-old boy with messy brown hair, is standing at the fork, dressed in a simple adventurer's outfit. He looks unsure, his face lit with a mix of fear and excitement. The trees are tall and ancient, their branches creating eerie silhouettes against the twilight sky. The air is thick with the smell of damp earth and decaying leaves.
+</img>
+<txt>
+John, flickan och pojken med glasögonen stod i den mörka [hallen](hall). De hade öppnat dörren till höger. Rummet var litet och runt, med en enda [fönster](window) högt upp på väggen. En svag [månstråle](moonbeam) lyste in. I mitten av rummet stod ett [bord](table), och på det låg en gammal [bok](book). "Vad är det där?" frågade flickan, hennes röst [skakade](shaking). "Jag vet inte," sa John. "Men vi måste ta reda på det." John gick fram till bordet. Boken såg [gammal](old) och [mystisk](mysterious) ut. Han tog upp boken. Den var tung. "Läs det!" sa pojken med glasögonen. John öppnade boken.
+</txt>
+<opt>
+Vad ska John göra? [Läs boken] [Lägga tillbaka boken på bordet] [Gå ut ur rummet]
+</opt>
+<exe>
+<q>Var i huset befann sig John och hans vänner?</q>
+[I ett runt rum](rätt) [I en mörk hall] [I ett bibliotek]
+<q>Vad fanns på bordet?</q>
+[En gammal bok](rätt) [Ett ljus] [En stol]
+</exe>
+```
