@@ -16,6 +16,9 @@ const Welcome = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
+        // Set loading state
+        setIsLoading(true);
+        
         const response = await fetch('http://localhost:5000/api/auth/user', {
           method: 'GET',
           credentials: 'include', // Important for cookies/session
@@ -30,6 +33,9 @@ const Welcome = () => {
         }
       } catch (error) {
         console.error('Error checking login status:', error);
+      } finally {
+        // Clear loading state
+        setIsLoading(false);
       }
     };
     
@@ -47,6 +53,10 @@ const Welcome = () => {
       setIsLoading(true);
       setError(null);
 
+      console.log("Attempting login/signup with email:", email);
+      
+      const name = email.split('@')[0]; // Get name from email for new users
+      
       const backendResponse = await fetch('http://localhost:5000/api/auth/mock-google', {
         method: 'POST',
         headers: {
@@ -54,22 +64,30 @@ const Welcome = () => {
         },
         body: JSON.stringify({
           email,
+          name,
           isNewUser: isSignup,
         }),
         credentials: 'include', // Important for cookies/session
       });
 
+      if (!backendResponse.ok) {
+        throw new Error(`Server responded with status: ${backendResponse.status}`);
+      }
+
       const data = await backendResponse.json();
+      console.log("Login response:", data);
 
       if (data.status === 'success') {
         setUser(data.user);
         setShowMockLogin(false);
         
-        // Direct to different routes based on whether it's a login or signup
-        if (isSignup) {
-          // For new users, go to onboarding flow - skip HowDidYouHear
+        // Direct to different routes based on user status
+        if (data.user.isNewUser || !data.user.onboardingCompleted) {
+          console.log("User needs onboarding, redirecting to onboarding flow");
+          // For new users, go to onboarding flow
           navigate('/who-is-learning');
         } else {
+          console.log("User already completed onboarding, redirecting to stories");
           // For existing users, go directly to stories page
           navigate('/stories');
         }
@@ -77,8 +95,8 @@ const Welcome = () => {
         setError(data.message || 'Login failed');
       }
     } catch (error) {
-      console.error('Error during mock login:', error);
-      setError('Login failed. Please try again.');
+      console.error('Error during login/signup:', error);
+      setError(`Login failed: ${error.message}. Please try again.`);
     } finally {
       setIsLoading(false);
     }

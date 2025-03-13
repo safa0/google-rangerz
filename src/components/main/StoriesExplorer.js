@@ -60,13 +60,17 @@ const StoriesExplorer = ({ userData }) => {
       }
     ];
 
+    console.log("User interests:", userData.interests);
+
     // Filter stories based on user interests
     if (userData.interests && userData.interests.length > 0) {
       const filteredStories = mockStories.filter(story => 
         userData.interests.includes(story.category)
       );
+      console.log("Filtered stories based on interests:", filteredStories);
       setStories(filteredStories.length > 0 ? filteredStories : mockStories);
     } else {
+      console.log("No user interests found, showing all stories");
       setStories(mockStories);
     }
   }, [userData.interests]);
