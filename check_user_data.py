@@ -32,6 +32,69 @@ def get_user_preferences(conn, user_id):
     cursor.execute("SELECT * FROM user_preferences WHERE user_id = ?", (user_id,))
     return cursor.fetchone()
 
+def dump_database(conn, output_file=None):
+    """Dump the entire database contents in a readable format"""
+    cursor = conn.cursor()
+    
+    # Get all tables
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+    tables = [table[0] for table in cursor.fetchall()]
+    
+    output = {}
+    
+    for table_name in tables:
+        print(f"\n=== TABLE: {table_name} ===")
+        
+        # Get table schema
+        cursor.execute(f"PRAGMA table_info({table_name})")
+        columns = cursor.fetchall()
+        column_names = [column[1] for column in columns]
+        
+        print(f"Schema: {', '.join(column_names)}")
+        
+        # Get all records
+        cursor.execute(f"SELECT * FROM {table_name}")
+        rows = cursor.fetchall()
+        
+        print(f"Found {len(rows)} records")
+        
+        # Store table data
+        table_data = []
+        
+        # Display each record
+        for i, row in enumerate(rows):
+            record = {}
+            for j, value in enumerate(row):
+                column_name = column_names[j]
+                
+                # Try to parse JSON strings
+                if isinstance(value, str) and (value.startswith('[') or value.startswith('{')):
+                    try:
+                        parsed_value = json.loads(value)
+                        record[column_name] = parsed_value
+                    except json.JSONDecodeError:
+                        record[column_name] = value
+                else:
+                    record[column_name] = value
+            
+            # Print record
+            print(f"\nRecord #{i+1}:")
+            print(json.dumps(record, indent=2, default=str))
+            
+            # Add to table data
+            table_data.append(record)
+        
+        # Add table to output
+        output[table_name] = table_data
+    
+    # Write to file if specified
+    if output_file:
+        with open(output_file, 'w') as f:
+            json.dump(output, f, indent=2, default=str)
+        print(f"\nDatabase dump written to {output_file}")
+    
+    return output
+
 def clear_database(conn, force=False):
     """Clear all data from the database while preserving the schema"""
     if not force:
@@ -339,6 +402,11 @@ def main():
     clear_parser.add_argument('--db', default='users.db', help='Database file to clear')
     clear_parser.add_argument('--force', action='store_true', help='Skip confirmation prompt')
     
+    # Dump database command
+    dump_parser = subparsers.add_parser('dump', help='Dump the entire database contents')
+    dump_parser.add_argument('--db', default='users.db', help='Database file to dump')
+    dump_parser.add_argument('--output', help='Output file to write the dump to (JSON format)')
+    
     args = parser.parse_args()
     
     if args.command == 'list':
@@ -427,6 +495,11 @@ def main():
     elif args.command == 'clear':
         conn = connect_db(args.db)
         clear_database(conn, args.force)
+        conn.close()
+    
+    elif args.command == 'dump':
+        conn = connect_db(args.db)
+        dump_database(conn, args.output)
         conn.close()
     
     else:
