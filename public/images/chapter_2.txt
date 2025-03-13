@@ -1,0 +1,13 @@
+<img>
+A young boy, John, with short, brown hair and wearing a blue hiking outfit, is in a sunlit forest clearing. He's smiling and looking at a tent he's just finished setting up. Sunlight streams through the trees, dappling the ground with light and shadow. A small, clear stream flows nearby, reflecting the trees and sky. His fishing rod leans against a tree, and a backpack rests beside him. The air is fresh, and the scene is peaceful and inviting.
+</img>
+<txt>
+John var på [vandring](hiking) i en djup [skog](forest). Han [älskade](loved) att vara ute i [naturen](naturen), och idag hade han bestämt sig för att [slå upp](set up) sitt [tält](tent). Med [tältet](tent) på plats, tog han fram sitt [fiskespö](fishing rod). Han [fiskade](fishing) vid den kristallklara [forsen](stream). Vilka [hemligheter](secrets) gömmer sig i skogen?
+</txt>
+<opt>
+Vad vill John göra nu? [Fiska i forsen] [Utforska skogen] [Gå in i tältet]
+</opt>
+<exe>
+Matcha orden med sina betydelser:
+[skogen](forest) [vatten](water) [fiske](fishing) [tält](tent)
+</exe>

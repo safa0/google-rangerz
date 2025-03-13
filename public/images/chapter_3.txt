@@ -1,0 +1,15 @@
+```
+<img>
+A young boy, John, with short brown hair and a bright smile, sits inside a cozy, small tent in a lush green forest. Sunlight streams through the tent's open flap, illuminating dust motes dancing in the air. John is surrounded by camping gear: a rolled-up sleeping bag, a small backpack, and a half-eaten sandwich. Outside the tent, a crystal-clear stream gurgles nearby, reflecting the sunlight. Tall, green trees surround the tent, creating a peaceful, secluded atmosphere. John is holding a small, well-worn book with a colorful cover, his eyes focused on the pages. The overall mood is one of tranquility and adventure.
+</img>
+<txt>
+John kröp in i sitt [tält](tent). Det var litet men mysigt. Han kände [doften](smell) av [skog](forest) och jord. Han tog upp sin [bok](book) och började läsa. Vilka [hemligheter](secrets) gömmer sig i [skogen](forest)?
+</txt>
+<opt>
+Vad ska John göra nu? [Läsa boken] [Gå ut ur tältet] [Leta efter fiskeutrustning]
+</opt>
+<exe>
+Matcha följande ord med deras rätta betydelser:
+[tält](tent) [bok](book) [skog](forest) [doft](smell)
+</exe>
+```

@@ -1,77 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getStoriesbyUserID } from './story_api_render.js';  // Import the new API function
 
 const StoriesExplorer = ({ userData }) => {
   const navigate = useNavigate();
   const [stories, setStories] = useState([]);
   const [activeTab, setActiveTab] = useState('forYou');
 
-  // Mock data for stories based on selected interests
   useEffect(() => {
-    // In a real app, this would fetch from an API based on user interests
-    const mockStories = [
-      {
-        id: 1,
-        title: "Zari and The Giganto-Pop",
-        category: 'animals',
-        difficulty: 'beginner',
-        imageUrl: '',
-        color: '#8BC34A'
-      },
-      {
-        id: 2,
-        title: "Rymdresan",
-        category: 'space',
-        difficulty: 'intermediate',
-        imageUrl: '',
-        color: '#3F51B5'
-      },
-      {
-        id: 3,
-        title: "Fotbollsmatchen",
-        category: 'sports',
-        difficulty: 'beginner',
-        imageUrl: '',
-        color: '#FF5722'
-      },
-      {
-        id: 4,
-        title: "Musikskolan",
-        category: 'music',
-        difficulty: 'advanced',
-        imageUrl: '',
-        color: '#9C27B0'
-      },
-      {
-        id: 5,
-        title: "Skogsäventyret",
-        category: 'nature',
-        difficulty: 'intermediate',
-        imageUrl: '',
-        color: '#4CAF50'
-      },
-      {
-        id: 6,
-        title: "Vikingaresan",
-        category: 'history',
-        difficulty: 'advanced',
-        imageUrl: '',
-        color: '#795548'
+    const fetchStories = async () => {
+      // user id is hardcoded for now
+      // if (!userData || !userData.id) return;
+      const fetchedStories = await getStoriesbyUserID("user_123");
+      if (fetchedStories.length > 0) {
+        setStories(fetchedStories);
+      } else {
+        console.error("No stories found for user.");
       }
-    ];
+    };
 
-    // Filter stories based on user interests
-    if (userData.interests && userData.interests.length > 0) {
-      const filteredStories = mockStories.filter(story => 
-        userData.interests.includes(story.category)
-      );
-      setStories(filteredStories.length > 0 ? filteredStories : mockStories);
-    } else {
-      setStories(mockStories);
-    }
-  }, [userData.interests]);
+    fetchStories();
+  }, [userData]);
 
-  // Function to handle story selection
   const handleStorySelect = (storyId) => {
     navigate(`/story/${storyId}`);
   };
@@ -118,35 +68,39 @@ const StoriesExplorer = ({ userData }) => {
       </div>
 
       <div className="stories-grid">
-        {stories.map(story => (
-          <div 
-            key={story.id} 
-            className="story-card"
-            onClick={() => handleStorySelect(story.id)}
-          >
-            {story.imageUrl ? (
-              <img src={story.imageUrl} alt={story.title} className="story-image" />
-            ) : (
-              <div 
-                style={{ 
-                  height: '100%', 
-                  backgroundColor: story.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '48px',
-                  color: 'white'
-                }}
-              >
-                {story.title.charAt(0)}
-              </div>
-            )}
-            <div className="story-title">{story.title}</div>
-          </div>
-        ))}
+        {stories.length === 0 ? (
+          <p>No stories available</p>
+        ) : (
+          stories.map(story => (
+            <div 
+              key={story.id} 
+              className="story-card"
+              onClick={() => handleStorySelect(story.id)}
+            >
+              {story.thumbnail ? (
+                <img src={story.thumbnail} alt={story.title} className="story-image" />
+              ) : (
+                <div 
+                  style={{ 
+                    height: '100%', 
+                    // random background color
+                    backgroundColor: `#${Math.floor(Math.random()*16777215).toString(16)}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '48px',
+                    color: 'white'
+                  }}
+                >
+                  {story.title.charAt(0)}
+                </div>
+              )}
+              <div className="story-title">{story.title}</div>
+            </div>
+          ))
+        )}
       </div>
 
-      {/* Navigation bar for mobile */}
       <div 
         style={{
           position: 'fixed',

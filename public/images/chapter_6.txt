@@ -1,0 +1,17 @@
+```
+<img>
+A young boy with short, brown hair and wearing a blue jacket stands at the edge of a crystal-clear [forsen](stream) in a lush, green forest. The sun is shining, and the light glitters on the [vattnet](water). He holds a [fiskespö](fishing rod) in his hand and looks intently at the [vatten](water), as if expecting something to happen. In the background, a [tält](tent) is pitched next to a [träd](tree). The atmosphere is calm and peaceful.
+</img>
+<txt>
+John gick ner till [vattnet](water). Han såg den kristallklara [forsen](stream). [Solen](sun) sken genom [träden](trees). Han [älskade](loved) att vara i [skogen](forest). Han [öppnade](opened) sin [ryggsäck](backpack) och tog fram sitt [fiskespö](fishing rod). Vilka [hemligheter](secrets) gömmer sig i skogen?
+</txt>
+<opt>
+Vad ska John göra? [Fiska] [Utforska skogen] [Gå tillbaka till tältet]
+</opt>
+<exe>
+<exe>
+Matcha följande ord med deras rätta betydelser:
+[skog](forest) [vatten](water) [fiska](fish) [tält](tent)
+</exe>
+</exe>
+```
