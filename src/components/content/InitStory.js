@@ -13,65 +13,64 @@ const InitStory = ({userData}) => {
   console.log(userData)
 
   useEffect(() => {
-    // Fetch story options when component mounts
     const fetchStoryOptions = async () => {
-      console.log('🔄 InitStory: Fetching story options, useRealApi =', useRealApi);
-      setLoading(true);
-      try {
-        const response = await realInitializeStory(userData)
-        console.log('🔄 InitStory: Received response:', response);
-        // Create initial story cards without images
-        const initialStoryCards = response.stories.map((story, index) => ({
-            id: index + 1,
-            title: story.title,
-            description: story.txt,
-            imgDescription: story.img_description,
-            image: null, // Will be populated with fetched images
-            imageLoading: true
-          }));
-          
-          console.log('🔄 InitStory: Created initial story cards:', initialStoryCards);
-          
-          // Set initial cards to show loading state
-          setStoryOptions(initialStoryCards);
-          
-          // Fetch images for each card
-          console.log('🔄 InitStory: Fetching images for cards');
-          const cardsWithImages = await Promise.all(
-            initialStoryCards.map(async (card) => {
-              console.log(`🔄 InitStory: Fetching image for card ${card.id} with description: ${card.imgDescription}`);
-              try {
-                // Choose between real API and mock based on flag
-                
-                const imageData = await generateImage(card.imgDescription)
-                console.log(`🔄 InitStory: Image fetched for card ${card.id}`);
-                return {
-                  ...card,
-                  image: imageData,
-                  imageLoading: false
-                };
-              } catch (err) {
-                console.error(`❌ InitStory: Error generating image for card ${card.id}:`, err);
-                return {
-                  ...card,
-                  image: `https://via.placeholder.com/300x200?text=Image+Error`,
-                  imageLoading: false,
-                  imageError: true
-                };
-              }
-            })
-          );
-          
-          console.log('🔄 InitStory: All images fetched, updating cards');
-          setStoryOptions(cardsWithImages);
-       
-      } catch (err) {
+    console.log('🔄 InitStory: Fetching story options, useRealApi =', useRealApi);
+    setLoading(true);
+    try {
+    const response = await realInitializeStory(userData)
+    console.log('🔄 InitStory: Received response:', response);
+    // Create initial story cards without images
+    const initialStoryCards = response.stories.map((story, index) => ({
+        id: index + 1,
+        title: story.title,
+        description: story.txt,
+        imgDescription: story.img_description,
+        image: null, // Will be populated with fetched images
+        imageLoading: true
+        }));
+        
+        console.log('🔄 InitStory: Created initial story cards:', initialStoryCards);
+        
+        // Set initial cards to show loading state
+        setStoryOptions(initialStoryCards);
+        
+        // Fetch images for each card
+        console.log('🔄 InitStory: Fetching images for cards');
+        const cardsWithImages = await Promise.all(
+        initialStoryCards.map(async (card) => {
+            console.log(`🔄 InitStory: Fetching image for card ${card.id} with description: ${card.imgDescription}`);
+            try {
+            // Choose between real API and mock based on flag
+            
+            const imageData = await generateImage(card.imgDescription)
+            console.log(`🔄 InitStory: Image fetched for card ${card.id}`);
+            return {
+                ...card,
+                image: imageData,
+                imageLoading: false
+            };
+            } catch (err) {
+            console.error(`❌ InitStory: Error generating image for card ${card.id}:`, err);
+            return {
+                ...card,
+                image: `https://via.placeholder.com/300x200?text=Image+Error`,
+                imageLoading: false,
+                imageError: true
+            };
+            }
+        })
+        );
+        
+        console.log('🔄 InitStory: All images fetched, updating cards');
+        setStoryOptions(cardsWithImages);
+    
+    } catch (err) {
         console.error('❌ InitStory: Error loading story options:', err);
         setError("Failed to load story options. Please try again.");
-      } finally {
+    } finally {
         console.log('🔄 InitStory: Finished loading story options');
         setLoading(false);
-      }
+    }
     };
 
     fetchStoryOptions();
