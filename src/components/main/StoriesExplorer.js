@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../App';
 
 const StoriesExplorer = ({ userData }) => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [stories, setStories] = useState([]);
   const [activeTab, setActiveTab] = useState('forYou');
+  const [isLoading, setIsLoading] = useState(true);
 
   // Mock data for stories based on selected interests
   useEffect(() => {
+    console.log("StoriesExplorer: Component mounted");
+    setIsLoading(true);
+    
     // In a real app, this would fetch from an API based on user interests
     const mockStories = [
       {
@@ -60,25 +66,77 @@ const StoriesExplorer = ({ userData }) => {
       }
     ];
 
-    console.log("User interests:", userData.interests);
+    console.log("StoriesExplorer: User interests:", userData?.interests);
 
-    // Filter stories based on user interests
-    if (userData.interests && userData.interests.length > 0) {
-      const filteredStories = mockStories.filter(story => 
-        userData.interests.includes(story.category)
-      );
-      console.log("Filtered stories based on interests:", filteredStories);
-      setStories(filteredStories.length > 0 ? filteredStories : mockStories);
+    // Ensure userData.interests exists
+    if (userData && userData.interests && userData.interests.length > 0) {
+      try {
+        const filteredStories = mockStories.filter(story => 
+          userData.interests.includes(story.category)
+        );
+        console.log("Filtered stories based on interests:", filteredStories);
+        setStories(filteredStories.length > 0 ? filteredStories : mockStories);
+      } catch (error) {
+        console.error("Error filtering stories:", error);
+        setStories(mockStories);
+      }
     } else {
       console.log("No user interests found, showing all stories");
       setStories(mockStories);
     }
-  }, [userData.interests]);
+    
+    setIsLoading(false);
+  }, [userData]);
 
   // Function to handle story selection
   const handleStorySelect = (storyId) => {
     navigate(`/story/${storyId}`);
   };
+
+  // If component is still loading, show a loading indicator
+  if (isLoading) {
+    return (
+      <div className="stories-container" style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        minHeight: '100vh'
+      }}>
+        <p>Loading stories...</p>
+      </div>
+    );
+  }
+
+  // If there's no user or userData, show an error
+  if (!user) {
+    console.error("StoriesExplorer: No user found");
+    return (
+      <div className="stories-container" style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        minHeight: '100vh'
+      }}>
+        <div>
+          <p>Session error. Please login again.</p>
+          <button 
+            onClick={() => navigate('/')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#58CC02',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              marginTop: '20px'
+            }}
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="stories-container">

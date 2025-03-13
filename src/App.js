@@ -25,6 +25,7 @@ export const AuthContext = React.createContext({
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authInitialized, setAuthInitialized] = useState(false);
   
   const [userData, setUserData] = useState({
     userType: '',
@@ -43,48 +44,58 @@ function App() {
   });
 
   // Check if user is logged in when app loads
-  // Check if user is logged in when app loads
- // Check if user is logged in when app loads
- useEffect(() => {
-  const checkLoginStatus = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/user', {
-        method: 'GET',
-        credentials: 'include',
-      });
-      
-      const data = await response.json();
-      
-      if (data.status === 'success') {
-        setUser(data.user);
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        console.log("Checking login status...");
+        setLoading(true);
         
-        // If user has preferences, also load them
-        if (data.userPreferences) {
-          console.log("Loaded user preferences:", data.userPreferences);
-          setUserData(prevData => ({
-            ...prevData,
-            interests: data.userPreferences.interests || [],
-            childAge: data.userPreferences.age,
-            character: data.userPreferences.character
-          }));
+        const response = await fetch('http://localhost:5000/api/auth/user', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        
+        const data = await response.json();
+        console.log("Login status response:", data);
+        
+        if (data.status === 'success') {
+          setUser(data.user);
+          
+          // If user has preferences, also load them
+          if (data.userPreferences) {
+            console.log("Loaded user preferences:", data.userPreferences);
+            setUserData(prevData => ({
+              ...prevData,
+              interests: data.userPreferences.interests || [],
+              childAge: data.userPreferences.age,
+              character: data.userPreferences.character
+            }));
+          }
+        } else {
+          // Clear user if not authenticated
+          setUser(null);
         }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+        // Clear user on error
+        setUser(null);
+      } finally {
+        setLoading(false);
+        setAuthInitialized(true);
       }
-    } catch (error) {
-      console.error('Error checking login status:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  checkLoginStatus();
-}, []);
+    };
+    
+    checkLoginStatus();
+  }, []);
 
   const login = (userData) => {
+    console.log("Setting user data in login function:", userData);
     setUser(userData);
   };
 
   const logout = async () => {
     try {
+      setLoading(true);
       await fetch('http://localhost:5000/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
@@ -92,6 +103,8 @@ function App() {
       setUser(null);
     } catch (error) {
       console.error('Error during logout:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,19 +124,35 @@ function App() {
   
   // Define protected route component
   const ProtectedRoute = ({ children }) => {
+    if (!authInitialized) {
+      return <div className="loading">Initializing app...</div>;
+    }
+    
     if (loading) {
       return <div className="loading">Loading...</div>;
     }
     
     if (!user) {
+      console.log("User not authenticated, redirecting to welcome page");
       return <Navigate to="/" replace />;
     }
     
     return children;
   };
 
+  // If auth hasn't been initialized yet, show a loading indicator
+  if (!authInitialized) {
+    return <div className="app-loading">Loading application...</div>;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout, loading }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      isAuthenticated: !!user, 
+      login, 
+      logout, 
+      loading 
+    }}>
       <Router>
         <div className="app">
           <Routes>
@@ -150,6 +179,8 @@ function App() {
                 <ProfilePage userData={userData} />
               </ProtectedRoute>
             } />
+            
+            {/* InitStory route removed due to missing component */}
             
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
