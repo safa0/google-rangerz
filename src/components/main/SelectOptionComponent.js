@@ -46,7 +46,7 @@ const SelectOptionComponent = ({ imageUrl, text, options, onNext }) => {
         {options.map((option, index) => (
           <div 
             key={index} 
-            className={`option-box ${selectedOption === option ? 'selected' : ''} ${isAnimating && selectedOption !== option ? 'fade-out' : ''}`}
+            className={`option-button ${selectedOption === option ? 'selected' : ''} ${isAnimating && selectedOption !== option ? 'fade-out' : ''}`}
             onClick={() => handleOptionSelect(option)}
           >
             {option}
