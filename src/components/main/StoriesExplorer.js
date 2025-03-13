@@ -317,7 +317,7 @@ const StoriesExplorer = ({ userData }) => {
               </div>
             </div>
           ))
-        ) : (
+        )} : (
           <div style={{ 
             padding: '20px', 
             textAlign: 'center', 
@@ -326,7 +326,7 @@ const StoriesExplorer = ({ userData }) => {
           }}>
             No stories found matching your criteria
           </div>
-        )}
+        )
       </div>
 
       <div 
