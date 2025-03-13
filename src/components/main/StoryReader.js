@@ -161,10 +161,10 @@ const StoryReader = ({ userData, updateUserStats }) => {
         return <SelectOptionComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} onNext={handleNext} />;
       case 'fill_in_blanks':
         console.log("fill_in_blanks");
-        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
+        return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
       case 'comprehension_text':
         console.log("comprehension_text");
-        return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} onNext={handleNext} />;
+        return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
     }
