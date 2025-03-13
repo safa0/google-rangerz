@@ -18,7 +18,7 @@ choice = ""
 summary = ""
 
 # Base directory
-base_dir = "./"
+base_dir = "./public/choices"
 
 # Get story descriptions from init_story endpoint
 # story_descriptions = []
@@ -69,7 +69,7 @@ descriptions = [desc.strip() for desc in descriptions]
 
 # Insert multiple stories
 for story_index in range(3):
-    user_id = f"user_{123 + story_index}"
+    user_id = f"user_123"
     story_title = titles[story_index]
     story_status = "ongoing"
     thumbnail_path = f"/images/story_{story_index + 1}_thumbnail.png"
@@ -87,7 +87,7 @@ for story_index in range(3):
     for i in range(num_chaps):
         print(f"Generating Chapter {i+1} for Story {story_index + 1}...")
 
-        exe_typ = rd.choice(["fill_in_blanks", "comprehension_text"])
+        exe_typ = rd.choice(["comprehension_text"])
 
         init_json = {
             "name": "John Singer",

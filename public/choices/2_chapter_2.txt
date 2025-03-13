@@ -1,17 +1,17 @@
 ```
 <img>
-A dramatic illustration of a group of young friends, John Singer, a brave boy with bright eyes and messy hair, and his friends, a girl with pigtails and a boy with glasses, standing at the edge of a dark forest. The trees are tall and gnarled, their branches intertwined, creating a dense canopy that blocks out most of the light. A dilapidated, gothic-style house looms in the distance, its windows like empty eyes staring out from the shadows. The sky is a deep, foreboding shade of purple, with a full moon casting an eerie glow over the scene. The friends look apprehensive, but John Singer has a determined expression, holding a hand out as if to stop his friends from entering the house, ready for adventure, with a hint of a spell. The house is surrounded by a faint, ghostly mist.
+A young boy, John Singer, with messy brown hair and wearing a blue tunic, stands at the entrance of a dark, mysterious cave inside a grand castle classroom. Sunlight streams in from the classroom, contrasting sharply with the shadows within the cave. He looks inside the cave, eyes wide with curiosity and a hint of fear. Beside him stands a girl, Elina, with blond hair and a green cloak, smiling encouragingly and pointing towards the cave with one hand, while the other holds a magic book. The cave entrance is framed by rough stones, and a faint glow seems to emanate from within.
 </img>
 <txt>
-John Singer och hans [vänner](friends) stod framför det [spöklika](ghostly) [huset](house). De var på en [resa](journey). "Nu, [trollkarl](wizard)!" sa John. "Jag [kallar](call) på dig!" [Vännerna](friends) tittade [förvånat](surprised) på honom. "Är du säker?" frågade flickan. John Singer nickade. Han var redo för [äventyr](adventure). Han ville hitta en [trollformel](spell). En [trollkarl](wizard) skulle hjälpa. Ett [äventyr](adventure) väntade. Han ropade återigen: "Jag [kallar](call) på en [trollkarl](wizard)!"
+John Singer stod vid [Grottans](cave) öppning. Grottan såg [mörk](dark) och [mystisk](mysterious) ut. Han kunde känna kylan från grottan på sin [hud](skin). Elina, med ett [leende](smile), pekade in i grottan. "Är du [redo](ready)?" frågade Elina. John tog ett djupt [andetag](breath). Han kände en blandning av [rädsla](fear) och [spänning](excitement). Han visste att detta var ett [äventyr](adventure), ett [magiskt](magic) äventyr. Han bestämde sig för att gå in i grottan.
 </txt>
 <opt>
-Vad händer nu? [Gå in i huset] [Vänta på trollkarlen] [Leta efter en annan väg]
+Vad ska John göra? [Gå in i grottan] [Fråga Elina om råd] [Stanna utanför grottan]
 </opt>
 <exe>
-<q>Vad var de på?</q>
-[En resa](rätt) [En fest] [En skola]
-<q>Vad var huset?</q>
-[Spöklikt](rätt) [Vackert] [Ljust]
+<q>Varför kände John [spänning](excitement)?</q>
+[För att han var på ett äventyr](rätt) [För att han var trött] [För att han var arg]
+<q>Vad heter flickan med blont hår?</q>
+[Elina](rätt) [Maja] [Lisa]
 </exe>
 ```

@@ -1,17 +1,17 @@
 ```
 <img>
-Inside the ghostly house, the three friends stand in a dimly lit hallway. Dust motes dance in the single ray of light that filters through a cracked window. John, his face determined, holds a flickering candle, casting eerie shadows on the peeling wallpaper. The girl clutches her chest, eyes wide with fear, while the boy with glasses nervously adjusts his spectacles. The hallway stretches into darkness, with closed doors on either side. The floorboards creak ominously under their feet.
+John Singer stands in a dark cave, illuminated by his flickering torch. The walls are rough and damp, covered in glistening stones. Water drips from the ceiling, creating small puddles on the ground. The air is cold, and shadows dance around him. He is wearing a simple tunic and trousers, with a determined expression on his face. He is holding the torch up, peering into the darkness ahead. In the distance, there is a faint glimmer of light.
 </img>
 <txt>
-John, flickan och pojken med glasögonen stod i den [mörka](dark) [hallen](hall). "Vi måste vara [försiktiga](careful)," sa John. Hans röst [ekade](echoed) i det [tysta](silent) huset. Dörrarna runt omkring dem var [stängda](closed). "Låt oss utforska rummen," föreslog John. Han höll upp ljuset högre. Han ville hitta en [trollformel](spell), men han var också [rädd](scared). De andra nickade [långsamt](slowly). De var [rädda](scared) också. De började gå nerför [hallen](hall). John öppnade dörren till vänster.
+John Singer hörde ljudet igen. Det var ett svagt [klick](click), som om något [litet](small) flyttades. Han stannade och höll andan, [lyssnade](listening) efter ljudet. Han vände sig långsamt om. Bakom honom, i [skuggorna](shadows), såg han en [liten](small) [figur](figure) röra sig. Den var [smal](slim) och [mörk](dark), och den höll något i handen. John kände [kylan](cold) krypa nerför ryggraden. Vad var det? Och vad höll den lilla [figuren](figure) i handen?
 </txt>
 <opt>
-Vad ska de göra nu? [Utforska rummet] [Gå nerför hallen] [Läsa en bok]
+Vad ska John göra nu? [Gå mot figuren] [Försöka gömma sig] [Kasta facklan]
 </opt>
 <exe>
-<q>Var var John?</q>
-[I ett spöklikt hus](rätt) [I ett bibliotek] [På en resa]
-<q>Vad höll John i handen?</q>
-[Ett ljus](rätt) [En bok] [En karta]
+<q>Vad hörde John?</q>
+[Ett klick](rätt) [En sång] [En hund]
+<q>Var såg John en liten figur?</q>
+[I skuggorna](rätt) [På taket] [På golvet]
 </exe>
 ```
