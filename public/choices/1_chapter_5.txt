@@ -1,15 +1,17 @@
 ```
 <img>
-A young boy, John Singer, with messy brown hair and bright, curious blue eyes, sits at a large, wooden desk in a dimly lit library. The desk is covered in stacks of old books with leather covers and gold lettering. He is surrounded by towering bookshelves filled with countless volumes. In front of him lies the open, magical book with glowing gold letters on the pages. He reaches out a hesitant hand towards it, his expression a mix of excitement and apprehension. The room is filled with the soft glow of candlelight, casting long shadows across the room.
+John Singer, a 12-year-old boy with messy brown hair and bright, curious eyes, stands in a brightly lit classroom that looks like a wizard's castle. Sunlight streams through large arched windows, illuminating dust motes dancing in the air. Other students, some with pointed hats and cloaks, others in normal clothes, sit at large, wooden desks, poring over thick, leather-bound books. A kind-looking wizard with a long white beard, wearing a robe embroidered with stars, stands at a lectern, teaching from a glowing book. John, in the foreground, looks a bit nervous but excited, holding his own magic book. The classroom is filled with magical objects: floating quills, bubbling potions, and glowing crystals.
 </img>
 <txt>
-John öppnade boken. Sidorna var gjorda av [pergament](parchment), och varje ord var skrivet med [guld](gold) bläck. Han läste de första raderna. Orden började [glöda](glow). Han kände en [känsla](feeling) av [äventyr](adventure).
+John Singer, nyfiken och lite [nervös](nervous), pratade med en [elev](student). Eleven hade [blont](blond) hår och bar en [grön](green) [kappa](cloak). "Hej," sa John. "Jag är ny här." "Jag heter Elina," svarade eleven med ett [leende](smile). "Det här är en [fantastisk](fantastic) [skola](school)!" Elina förklarade att de lärde sig att [arbeta](work) med [magi](magic). Hon sa att de [läste](reading) [magiska](magic) [böcker](books) och [övat](practicing) [trolleri](magic). John undrade vad han skulle lära sig först. Han kände en [känsla](feeling) av [äventyr](adventure) och [spänning](excitement).
 </txt>
 <opt>
-Vad ska John göra? [Fortsätta läsa] [Stänga boken] [Kalla på en [trollkarl](wizard)]
+Vad ska John göra nu? [Fråga Elina om magi] [Utforska klassrummet] [Gå tillbaka till korridoren]
 </opt>
 <exe>
-Fyll i luckorna:
-John kände en [___(magisk)] känsla.
+<q>Vad heter eleven som John pratade med?</q>
+[Elina](rätt) [Lisa] [Anna]
+<q>Vilken färg hade Elinas kappa?</q>
+[Grön](rätt) [Blå] [Röd]
 </exe>
 ```

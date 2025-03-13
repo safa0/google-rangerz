@@ -1,17 +1,17 @@
 ```
 <img>
-A dark and eerie cave entrance, shrouded in mist, looms before John, the girl, and the boy with glasses. The moon casts a pale light on the jagged rocks surrounding the opening. John, holding his torch high, is silhouetted against the dim light, his face a mixture of determination and fear. The girl and the boy stand close to him, their faces reflecting the flickering light of the torch, their expressions a mix of apprehension and excitement. The air is thick with an unnatural silence, and the mist seems to swirl ominously, hinting at the mysteries within the cave.
+The dark, mysterious corridor stretches before John Singer and Elina. The corridor is lit by flickering torches that cast long shadows on the walls. The walls are made of rough, dark stones, and the air is cold and damp. John and Elina are standing close together, their faces filled with a mix of fear and determination. Elina has her hand on her magic staff and is looking around nervously. The end of the corridor is shrouded in shadows, adding to the sense of mystery. The floor is made of stone, and the only sounds are the echo of their footsteps and the dripping of water.
 </img>
 <txt>
-John, flickan och pojken med [glasögon](glasses) stod framför [grottan](cave). [Dimman](mist) [svävade](hovered) runt [ingången](entrance), som om den ville [gömma](hide) hemligheterna inuti. [Facklans](torch) [sken](glow) [lyste](shone) upp [klipporna](rocks) och gjorde [skuggorna](shadows) [långa](long) och [spöklika](ghostly). John tog ett djupt [andetag](breath). "Nu går vi," sa han, hans röst [vibrerade](vibrating) av [spänning](excitement) och [rädsla](fear). Han ledde vägen in i [grottan](cave).
+John Singer och Elina gick in i den [mörka](dark) och [mystiska](mysterious) korridoren. Korridoren var en [förbjuden](forbidden) plats. Han kände [spänningen](excitement). Korridoren var [mörk](dark).  [Luften](air) kändes [kall](cold). "Vad är det här för en [plats](place)?" frågade John. "Jag vet inte," svarade Elina. "Men vi måste [hitta](find) [trollkarlen](wizard)." De gick framåt försiktigt. John tog ett djupt andetag. [Äventyret](adventure) [fortsatte](continued).
 </txt>
 <opt>
-Vad händer nu? [Gå djupare in i grottan] [Sök efter en annan väg] [Vänta och lyssna]
+Vad ska John och Elina göra? [Gå långsamt framåt] [Leta efter ledtrådar] [Stanna och lyssna]
 </opt>
 <exe>
-<exe>
-Fyll i luckorna:
-John höll sin [___(fackla)] högt.
-</exe>
+<q>Vad var korridoren?</q>
+[Mörk och mystisk](rätt) [Ljus och solig] [Stor och bred]
+<q>Vad skulle de göra?</q>
+[Hitta trollkarlen](rätt) [Hitta en skatt] [Gå hem]
 </exe>
 ```

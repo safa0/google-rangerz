@@ -1,15 +1,17 @@
 ```
 <img>
-A group of young friends, John Singer and two others, are walking along a winding, overgrown path through a dark forest. The sun is setting, casting long shadows and an eerie orange glow. In the distance, a large, dilapidated house stands on a small hill, its windows dark and broken. The air is thick with mist, and the sounds of rustling leaves and distant crows create a sense of mystery and suspense. John Singer, wearing a backpack, looks determined, while his friends seem hesitant.
+A young boy with messy brown hair, wearing a slightly oversized school uniform, stands at the entrance of a dimly lit classroom. Sunlight streams through the large windows, illuminating dust motes dancing in the air. The room is filled with old wooden desks and chairs, and in the corner, there's a large, mysterious, shadowy cave entrance. The boy looks curious and slightly apprehensive, with a mix of excitement and fear in his eyes. He's holding a worn, leather-bound book in his hands.
 </img>
 <txt>
-John Singer och hans [vänner](friends) var på en [resa](journey). De gick längs en [stig](path) genom en mörk [skog](forest). Himlen var mörk. De såg ett stort, gammalt [hus](house). Huset såg [spöklikt](ghostly) ut. Fönstren var trasiga. "Jag är inte rädd," sa John Singer. "Vi ska gå in!" Hans [vänner](friends) var [rädda](scared). Men de följde med John. De gick mot [huset](house). John kände en [känsla](feeling) av [äventyr](adventure). Skulle de våga gå in?
+John Singer gick in i [klassrummet](classroom). Rummet var ljust, men i ett hörn fanns en [mörk](dark) [grotta](cave) som såg [skrämmande](scary) ut. Elina tittade på honom och log. "Det där är [Grottan](cave) av [Mysterier](mysteries)," sa hon. "Ingen vet vad som finns där inne." Hon pekade på grottan. "Men jag har hört att det finns [skatter](treasures) där inne!" John Singer blev [nyfiken](curious). Han tittade på Elina och sedan på grottan. Han kände [äventyrslusten](adventure) rusa genom sina [ådror](veins).
 </txt>
 <opt>
-Vad ska de göra? [Gå in i huset] [Gå runt huset] [Kalla på en [trollkarl](wizard)]
+Vad ska John Singer göra? [Utforska grottan] [Lyssna på vad Elina har att säga] [Fråga om Trollkarlens skola]
 </opt>
 <exe>
-<q>Vad såg de i fjärran?</q>
-[Ett stort hus](rätt) [Ett träd] [En flod]
+<q>Var befann sig John Singer?</q>
+[I ett klassrum](rätt) [I en skog] [I en trädgård]
+<q>Vad såg John i rummet?</q>
+[En grotta](rätt) [En drake] [Ett monster]
 </exe>
 ```

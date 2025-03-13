@@ -1,15 +1,17 @@
+```
 <img>
-A young boy with messy brown hair and bright blue eyes, wearing a dark blue cloak, stands at the end of a long, dimly lit hallway. The walls are made of rough, gray stone, and torches flicker in sconces, casting dancing shadows. The floor is made of cold, black stone tiles. Two closed, heavy wooden doors are visible along the hall. The air feels thick and heavy with a sense of mystery. The boy holds a small, tarnished brass key in his hand, his expression a mix of curiosity and apprehension.
+The scene is a dimly lit, ancient school corridor. John Singer, a 12-year-old boy with messy brown hair, is pressed against a shadowed alcove, trying to hide. He wears a slightly oversized school uniform, his face is pale, and his eyes are wide with a mixture of fear and curiosity. In the distance, a small, shadowy figure with a pointed hat and a dark cloak moves quickly away from him, disappearing around a corner. The corridor is lined with heavy wooden doors, and the flickering light of old-fashioned wall sconces casts eerie shadows. The air is thick with dust and a sense of mystery.
 </img>
 <txt>
-John, flickan och pojken med glasögonen fortsatte nerför den [mörka](dark) [hallen](hall). De hörde ett svagt [eko](echo) från sina steg. Torches längs väggarna kastade [fladdrande](flickering) [skuggor](shadows). De såg två [stängda](closed) dörrar längs [hallen](hallen). Vilken dörr skulle de öppna? John kände en blandning av [rädsla](fear) och [äventyr](adventure). Han visste inte vad som väntade bakom dörrarna. Han var redo för [äventyr](adventure).
+John Singer and Elina har gått in i [Grottan](cave) av [Mysterier](mysteries). Han bestämde sig för att [försöka gömma](try to hide) sig. Han kände [rädsla](fear) och [spänning](excitement). Han hoppade snabbt in i ett [hörn](corner). Han [tryckte](pressed) sig mot [väggen](wall) och höll andan. Han såg [den lilla](the small) [figuren](figure) försvinna runt ett [hörn](corner). Vad skulle han göra nu? Var han [säker](safe)? Han visste inte. Han ville [lösa](solve) [mysteriet](mystery)! Han måste hitta den försvunna [trollkarlen](wizard)!
 </txt>
 <opt>
-Vad ska de göra? [Öppna dörren till vänster] [Öppna dörren till höger] [Gå tillbaka]
+Vad ska John Singer göra? [Följa den lilla figuren] [Utforska grottan] [Gå tillbaka till Elina]
 </opt>
 <exe>
-<q>Vilka gick nerför hallen?</q>
-[John, flickan och pojken med glasögonen](rätt) [John och flickan] [John och pojken]
-<q>Vad hade de för sig i hallen?</q>
-[De letade efter en trollformel](rätt) [De sjöng en sång] [De åt lunch]
+<q>Var gömde sig John Singer?</q>
+[I ett hörn](rätt) [Bakom en dörr] [Under ett bord]
+<q>Vad ville John göra?</q>
+[Lösa mysteriet](rätt) [Äta lunch] [Spela spel]
 </exe>
+```

@@ -1,17 +1,17 @@
 ```
 <img>
-A young boy with messy brown hair and bright, curious blue eyes, wearing a slightly oversized tweed jacket, sits hunched over a large, ancient book in a dimly lit library. The book is open, revealing pages filled with strange symbols and handwritten text. Dust motes dance in a single ray of sunlight that streams through a high window, illuminating the scene. The boy's face is a mixture of excitement and apprehension. He clutches the book tightly, his knuckles white. Around him are towering shelves packed with books, creating a maze of shadows. The air is thick with the scent of old paper and leather.
+A young boy named John Singer, wearing a worn leather jacket, stands in front of a tall, ornate gate made of dark wood and iron. The gate is slightly ajar, revealing a glimpse of a mystical, swirling vortex of colors and lights on the other side. The scene is set in a dusty, old library filled with towering bookshelves, old maps, and flickering candlelight. John's face shows a mixture of excitement and fear, his eyes wide with wonder. The air is thick with the scent of old books and a hint of magic. In the background, a large, arched window reveals a stormy sky, adding to the sense of adventure and mystery.
 </img>
 <txt>
-John Singer öppnade boken. Sidorna var gjorda av pergament, och varje ord var skrivet med [guld](gold) bläck. Han läste de första raderna, och orden började [glöda](glow). Innan han visste ordet av, sög [magin](magic) i boken in honom. Han kände hur han [svävade](floated) genom luften, förbi hyllor av [böcker](books) och dammiga [kartor](maps). Plötsligt befann han sig i ett annat [slott](castle), mycket större och mer [mystiskt](mysterious) än det han hade sett i böckerna.
+John Singer klev genom den [magiska](magic) porten. Direkt möttes han av en virvelvind av färger och ljus. Han kände hur hans [sinne](mind) fylldes av [förvåning](surprise). Plötsligt befann han sig i en [skola](school), men inte vilken [skola](school) som helst. Denna [skola](school) var gjord av [troll](wizard) [slott](castle), och korridorerna var fyllda av [magiska](magic) varelser. Han kunde se [trollkarlar](wizard) som [arbetade](working) med [magiska](magic) [resor](travel).
 </txt>
 <opt>
-Vad ska John göra nu? [Utforska slottet] [Leta efter en magisk trollformel] [Försöka återvända till biblioteket]
+Vad ska John göra härnäst? [Utforska skolan] [Prata med en trollkarl] [Fly från skolan]
 </opt>
 <exe>
-<q>Vad var sidorna i boken gjorda av?</q>
-[Pergament](rätt) [Papper] [Trä]
-<q>Vad började orden i boken göra?</q>
-[Glöda](rätt) [Försvinna] [Flyga bort]
+<q>Vad klev John igenom?</q>
+[En magisk port](rätt) [En vanlig dörr] [En port till skolan]
+<q>Vad var skolan gjord av?</q>
+[Ett trollslott](rätt) [En sten] [En fabrik]
 </exe>
 ```

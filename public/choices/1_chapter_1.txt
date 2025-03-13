@@ -1,17 +1,17 @@
 ```
 <img>
-A young boy with short brown hair, named John, is in a dimly lit library. Sunlight streams through a tall, arched window, illuminating floating dust motes. He wears a simple t-shirt and jeans, and his eyes are wide with curiosity. In front of him on a wooden desk sits a large, leather-bound book with intricate golden symbols etched on the cover. The book seems to glow faintly. The shelves around him are filled with towering stacks of ancient books, some of which are falling apart. The air is thick with the scent of old paper and leather. A sense of mystery and anticipation fills the scene.
+A young boy, John Singer, with messy brown hair and wide, curious eyes, stands hesitantly at a large, ornate, wooden door in a dimly lit, dusty attic. The door is slightly ajar, and a soft, golden light spills out, illuminating swirling dust motes in the air. He wears a simple t-shirt and jeans, looking both excited and a little scared. A worn, leather-bound book rests in his hands, its pages filled with strange symbols. Sunlight streams through a small, arched window, casting long shadows across the floor, and a cobweb hangs delicately in the corner of the attic. The overall mood is mysterious and inviting.
 </img>
 <txt>
-John Singer älskade [magi](magic). En dag, medan han letade efter [äventyr](adventures) i biblioteket, upptäckte han något otroligt. Långt in i ett dammigt hörn, bakom högar av gamla böcker, hittade han en gammal, magisk bok. Omslaget var gjort av mörk [läder](leather) och dekorerat med mystiska [symboler](symbols). John kände en våg av [nyfikenhet](curiosity). Skulle han våga läsa den? Boken såg ut att innehålla hemligheterna till många kraftfulla [trollformler](spells)!
+John Singer stod i ett dammigt [vindsrum](attic). Framför honom stod en stor, [gammal](old) dörr. Han visste att det var [magi](magic) i luften. Han öppnade dörren försiktigt. Bakom dörren fanns en [port](gate) till en annan värld. John tog ett djupt andetag och bestämde sig för att [resa](travel).
 </txt>
 <opt>
-Vad ska John göra? [Öppna boken] [Gå därifrån] [Kalla på en vän]
+Vad ska John göra? [Gå igenom dörren] [Leta efter en ficklampa] [Stäng dörren och gå ner]
 </opt>
 <exe>
-<q>Vad hittade John i biblioteket?</q>
-[En magisk bok](rätt) [En leksak] [En penna]
-<q>Var fanns boken?</q>
-[I ett dammigt hörn](rätt) [På ett bord] [På golvet]
+<q>Var befann sig John?</q>
+[I ett vindsrum](rätt) [I ett kök] [I en skog]
+<q>Vad hade John i handen?</q>
+[En bok](rätt) [En trollstav] [En nyckel]
 </exe>
 ```

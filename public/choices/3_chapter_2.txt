@@ -1,17 +1,17 @@
 ```
 <img>
-A dark, shadowy forest at dusk. The sky is a deep purple, with a few stars beginning to twinkle. Two paths diverge in the foreground: one, to the left, is overgrown with thorny bushes and shrouded in mist, while the other, to the right, appears smoother and better lit by a distant, faint light. John Singer, a 12-year-old boy with messy brown hair, is standing at the fork, dressed in a simple adventurer's outfit. He looks unsure, his face lit with a mix of fear and excitement. The trees are tall and ancient, their branches creating eerie silhouettes against the twilight sky. The air is thick with the smell of damp earth and decaying leaves.
+A dark, narrow corridor in a magic school, lit by flickering torches. John Singer, a 12-year-old boy with curious eyes and messy brown hair, is cautiously walking down the corridor. He wears a simple green cloak, holding a flickering torch in his hand. The walls are made of old, dark stone, and the floor is uneven. Shadows dance on the walls as the small, dark figure from before disappears around a corner further down the corridor. The air is thick with mystery.
 </img>
 <txt>
-John, flickan och pojken med glasögonen stod i den mörka [hallen](hall). De hade öppnat dörren till höger. Rummet var litet och runt, med en enda [fönster](window) högt upp på väggen. En svag [månstråle](moonbeam) lyste in. I mitten av rummet stod ett [bord](table), och på det låg en gammal [bok](book). "Vad är det där?" frågade flickan, hennes röst [skakade](shaking). "Jag vet inte," sa John. "Men vi måste ta reda på det." John gick fram till bordet. Boken såg [gammal](old) och [mystisk](mysterious) ut. Han tog upp boken. Den var tung. "Läs det!" sa pojken med glasögonen. John öppnade boken.
+John Singer and Elina gick in i [Grottan](cave) av [Mysterier](mysteries). Han hade valt att [följa](follow) den [lilla](small) [figuren](figure). Han [springer](running) snabbt nerför korridoren.  [Figuren](figure) försvann runt ett [hörn](corner)! John sprang efter. Han såg en [mörk](dark) [port](gate) i slutet av korridoren. En [känsla](feeling) av [spänning](excitement) fick honom att [skynda](hurry) framåt. Han [stannade](stopped) vid porten. [Porten](gate) var [gammal](old) och [mörk](dark). Det var en [mysterisk](mysterious) plats. Han [tog](took) ett djupt andetag. Han kände att [äventyret](adventure) [fortsatte](continued). Han öppnade [porten](gate) försiktigt.
 </txt>
 <opt>
-Vad ska John göra? [Läs boken] [Lägga tillbaka boken på bordet] [Gå ut ur rummet]
+Vad ska John göra nu? [Gå in genom porten] [Gå tillbaka till Elina] [Ropa efter den lilla figuren]
 </opt>
 <exe>
-<q>Var i huset befann sig John och hans vänner?</q>
-[I ett runt rum](rätt) [I en mörk hall] [I ett bibliotek]
-<q>Vad fanns på bordet?</q>
-[En gammal bok](rätt) [Ett ljus] [En stol]
+<q>Var försvann figuren?</q>
+[Runt ett hörn](rätt) [I ett klassrum] [Ut ur skolan]
+<q>Vad såg John i slutet av korridoren?</q>
+[En port](rätt) [En skattkista] [En trollkarl]
 </exe>
 ```

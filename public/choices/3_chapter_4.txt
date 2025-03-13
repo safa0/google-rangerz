@@ -1,18 +1,17 @@
 ```
 <img>
-A moonlit cave entrance shrouded in mist. Two paths diverge at the mouth of the cave. The first path, a dark, winding [trail](path), disappears into a dense [forest](forest). The second path leads into the mouth of the cave, where mysterious shadows dance. John Singer, a 12-year-old boy with [brown](brown) hair, stands at the fork, [uncertain](unsure). He wears a [leather](leather) vest and carries a small, glowing [torch](torch). His friends, a girl with pigtails and a boy with [glasses](glasses), stand nervously behind him. The overall tone is [mysterious](mysterious) and [adventurous](adventurous).
+A young boy, John Singer, with messy brown hair and wide, curious eyes, stands at the entrance of a dark and mysterious gate. The gate is made of ancient, weathered wood, and the edges are covered in shadows. He wears a school uniform, but his green cloak is slightly tattered from the adventure. Elina, a girl with long blond hair, stands beside him, her face a mixture of concern and excitement. She wears a green cloak too. The light from a flickering torch illuminates their faces and casts dancing shadows on the rough stone walls of the corridor. The air is thick with an eerie sense of mystery. In the background, the dark corridor stretches away, disappearing into the unknown. The gate is slightly ajar, as if inviting them to enter. The floor is made of old stones.
 </img>
 <txt>
-John, flickan och pojken med [glasögon](glasses) stod framför den mörka [grottan](cave). Boken hade visat dem två [vägar](paths). En [väg](path) ledde in i en [skog](forest), den andra in i en [grotta](cave). De hade valt [grottan](cave). Grottans öppning var mörk, och en [dimma](mist) [svävade](hovered) runt den. [Månens](moon) ljus [lyste](shone) på [klipporna](rocks). John höll i sin [fackla](torch) och gick sakta mot [ingången](entrance). Han kände en blandning av [spänning](excitement) och [rädsla](fear). Vilka [hemligheter](secrets) dolde [grottan](cave)?
+John Singer och Elina stod vid [porten](gate). [Porten](gate) såg [gammal](old) ut. Den var gjord av [mörkt](dark) trä och [omgiven](surrounded) av [skuggor](shadows). [Luften](air) var fylld av [mysterium](mystery). Elina såg på John med en blandning av [oro](concern) och [förväntan](anticipation). "Vad händer nu?" sa John. Elina [nickade](nodded). "Jag vet inte, men vi måste [hitta](find) [trollkarlen](wizard)." Hon [tittade](looked) på John och [tog](took) ett djupt [andetag](breath). "Är du [redo](ready)?" frågade hon. John [nickade](nodded). Han visste att [äventyret](adventure) [fortsatte](continued). Han [tog](took) tag i dörrhandtaget och [öppnade](opened) [porten](gate) försiktigt. Bakom [porten](gate) såg John en [mörk](dark) och [mystisk](mysterious) [korridor](corridor). [Korridoren](corridor) såg ut som en [förbjuden](forbidden) plats. Han kände [spänningen](excitement). Han visste att [äventyret](adventure) [fortsatte](continued).
 </txt>
 <opt>
-Vad ska de göra? [Gå in i grottan] [Utforska skogen] [Kalla på en trollkarl]
+Vad ska John göra nu? [Gå in i korridoren] [Fråga Elina om råd] [Stäng porten]
 </opt>
 <exe>
-<exe>
-<q>Vad hade John i handen?</q>
-[En fackla](rätt) [En bok] [Ett svärd]
-<q>Vad såg de runt grottan?</q>
-[Dimma](rätt) [Snö] [Eld]
+<q>Vad var porten gjord av?</q>
+[Mörkt trä](rätt) [Guld] [Silver]
+<q>Vad kände John när han öppnade porten?</q>
+[Spänning](rätt) [Tristess] [Ilska]
 </exe>
 ```

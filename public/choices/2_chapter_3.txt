@@ -1,17 +1,17 @@
 ```
 <img>
-A spooky illustration of a dark, ancient house standing at the end of a winding path through a shadowy forest. The house has broken windows, a crooked roof, and overgrown vegetation. John Singer, a brave young boy with messy hair and a determined look, stands at the front of the path with his friends. The sky is a deep, stormy gray, and a faint glow emanates from the house, suggesting a mysterious presence within. His friends, a girl with braided hair and a boy with glasses, look scared but are following John. They are dressed in simple, adventure-ready clothes. In the background, the trees are tall and gnarled, their branches reaching out like skeletal arms.
+A young boy, John Singer, with messy brown hair and wide, curious eyes, stands at the entrance of a dark, mysterious cave. The cave's mouth is a gaping maw in a stone wall, shrouded in deep shadows, with the suggestion of sparkling crystals within. He wears a school uniform, slightly rumpled, holding a small, flickering torch that barely illuminates the entrance. Elina, a girl with blond hair, wearing a green cloak, stands beside him with a concerned yet encouraging expression, her hand gently touching his arm. The air is thick with the scent of damp earth and something unknown. Behind them, the school corridor fades into a soft glow. The scene is lit by the torch and the faint light from the corridor, emphasizing the darkness and mystery of the cave.
 </img>
 <txt>
-John Singer och hans [vänner](friends) stannade vid den [spöklika](ghostly) huset. De var på en [resa](journey), och huset hade visat sig längs vägen. "Jag [kallar](call) på en [trollkarl](wizard)!" ropade John. "Kanske han kan hjälpa oss." Hans [vänner](friends) såg [förvånat](surprised) på honom. "Är du säker?" frågade flickan. Hon såg [rädd](scared) ut. Pojken med glasögonen nickade långsamt. Han var också [rädd](scared). John var redo för [äventyr](adventure), han ville hitta en [trollformel](spell) eller något. "Jag är säker!" sa John. Han gick fram till den gamla dörren. Dörren var mörk och [knarrade](creaked) när han tog i den. Skulle de gå in?
+John Singer klev in i den [mörka](dark) grottan. Den [kalla](cold) luften slog emot honom. Han höll stadigt i [facklan](torch) som skakade i hans hand. Grottan såg [skrämmande](scary) ut, men han var [redo](ready) för [äventyret](adventure). Elina stod kvar vid [ingången](entrance). "Var försiktig," sa Elina. "Det kan finnas [farliga](dangerous) saker där inne." John nickade och gick [längre](deeper) in i [grottan](cave). Han hörde ett svagt [eko](echo) av sina [steg](steps). Han kände [spänningen](excitement). Han var [nyfiken](curious) på vad som fanns [där](there). [Mysteriet](mystery) lockade honom.
 </txt>
 <opt>
-Vad ska de göra? [Gå in i huset] [Leta efter en annan väg] [Ropa på en trollkarl igen]
+Vad ska John göra? [Fortsätta in i grottan] [Ropa efter Elina] [Tända ett större ljus]
 </opt>
 <exe>
-<q>Var stod huset?</q>
-[Vid slutet av en stig](rätt) [Vid en flod] [I en stad]
-<q>Vem ropade John på?</q>
-[En trollkarl](rätt) [En häst] [En drake]
+<q>Vad höll John i handen?</q>
+[En fackla](rätt) [En bok] [Ett svärd]
+<q>Vem stannade kvar vid ingången?</q>
+[Elina](rätt) [En trollkarl] [En lärare]
 </exe>
 ```

@@ -1,17 +1,17 @@
 ```
 <img>
-Inside a grand, ancient castle library, a young boy with messy brown hair and wearing a simple tunic stands before a towering bookshelf. The shelf is packed with leather-bound books, their spines adorned with gold lettering. Dust motes dance in the sunbeams that stream through a large arched window, illuminating the scene. The boy's eyes are wide with wonder and he is reaching out towards a specific book, its cover a deep, mysterious black with an intricate golden symbol on the front. The room is filled with an air of quiet enchantment, the shadows long and the light creating a play of textures on the worn wooden floor and the stone walls.
+A young boy with messy brown hair and bright, curious eyes stands in a grand hall of a magical school built inside a giant castle. The hall is filled with students, some of whom are human and some of whom are magical creatures. The walls are adorned with moving portraits of famous wizards, and the air is filled with the scent of old books and magical potions. Sunlight streams through large, arched windows, illuminating floating candles and shimmering dust motes. The boy is wearing a simple tunic and trousers, and he holds a worn, leather-bound book in his hands. He looks around with a mixture of excitement and apprehension, ready to explore this new, magical world.
 </img>
 <txt>
-John Singer befann sig plötsligt i [slottet](castle). Han hade letat efter en [magisk](magic) [trollformel](spell). Väggarna var gjorda av [sten](stone) och taket var högt. Här och där fanns stora [porträtt](portraits) av [trollkarlar](wizard). Han såg en stor hylla fylld med [böcker](books). De var i alla former och storlekar. Några hade [guld](gold) bokstäver, andra hade [mystiska](mysterious) [symboler](symbols) på omslaget. John gick försiktigt fram till hyllan. Han sträckte sig efter en bok. Omslaget var mörkt och kändes [mjukt](soft) under hans fingrar. Det kändes [magiskt](magical).
+John Singer befann sig i [skolan](school). Denna [skola](school) var som ett [slott](castle), fullt av [trollkarlar](wizard) och [magiska](magic) varelser. Han kände sig lite [rädd](scared), men också väldigt [nyfiken](curious). Han bestämde sig för att [utforska](explore) skolan. Han gick nerför en lång [korridor](corridor) med många dörrar. Han såg andra [elever](students) som [arbetade](working) med [magi](magic). Han såg [trollkarlar](wizard) som [arbetade](working) med [magiska](magic) [resor](travel). Korridorerna var fyllda av [magiska](magic) [resor](travel).
 </txt>
 <opt>
-Vad ska John göra? [Öppna boken] [Leta efter en hemlig gång] [Gå tillbaka till biblioteket]
+Vad ska John göra nu? [Gå in i ett klassrum] [Prata med en trollkarl] [Utforska en annan korridor]
 </opt>
 <exe>
-<q>Var hittade John boken?</q>
-[I ett slott](rätt) [I en skola] [I en affär]
-<q>Vad hade boken på omslaget?</q>
-[Mystiska symboler](rätt) [Bilder på djur] [Bilder på personer]
+<q>Vad kände John?</q>
+[Rädd](rätt) [Glad] [Trött]
+<q>Var såg John många dörrar?</q>
+[I korridoren](rätt) [I klassrummet] [I slottet]
 </exe>
 ```

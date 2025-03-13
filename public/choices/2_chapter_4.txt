@@ -1,14 +1,17 @@
 ```
 <img>
-A dramatic illustration of a group of three friends, John Singer, a boy with messy brown hair and glasses, a girl with long braided hair, and another boy with short hair, standing just inside the creaking, dark entrance of a haunted house at twilight. The house is old and dilapidated, with broken windows, overgrown ivy, and a shadowy, ominous appearance. Rain falls softly, reflecting the dim light from a single flickering street lamp in puddles on the muddy ground. John holds a torch, his face illuminated with a mix of excitement and fear. The girl looks apprehensive, her hand on John's arm, while the other boy clutches a worn book, his eyes wide with a mixture of fear and curiosity. A ghostly figure can be faintly seen in a window, adding to the eerie atmosphere. The overall tone is mysterious and suspenseful, highlighting the adventure they are about to embark on.
+A detailed illustration of a young boy, John Singer, 12 years old with messy brown hair and bright, curious eyes. He is standing in a dark, eerie cave, lit by the warm glow of a large, bright torch he holds in his right hand. The walls of the cave are rough and damp, with shadows dancing in the torchlight. The air is thick with an unseen mist, and the floor is uneven, suggesting an unexplored path leading deeper into the darkness. John's expression is a mix of excitement and slight apprehension. He wears simple, practical clothes: a dark tunic and sturdy boots, and a small backpack over his shoulders. In the background, barely visible in the shadows, are hints of what could be interesting rock formations. The image is designed to create a feeling of mystery and adventure, inviting the viewer to wonder what's hidden within the cave.
 </img>
 <txt>
-John Singer tog tag i dörrhandtaget. Det var [kallt](cold) och [fuktigt](damp). Han hörde ett [knarrande](creaking) ljud när han tryckte ner det. "Är du säker?" frågade flickan. Hon såg [rädd](scared) ut. Pojken med glasögonen nickade [långsamt](slowly). "Ja," sa John. "Vi måste gå in!" De tre vännerna klev in i det [mörka](dark) huset. Luften var [tung](heavy) och [dammtung](dusty). Lukten av [mögel](mold) och [gammalt](old) trä fyllde deras näsor. "Hallå?" ropade John. Hans röst [ekade](echoed) i det [tysta](silent) huset.
+John Singer höll upp [facklan](torch) högt. Ljuset [dansade](dancing) på väggarna i den [mörka](dark) [grottan](cave). Han gick långsamt, varje [steg](step) ekade mot [stenarna](stones). Han kunde höra droppar [vatten](water) falla ner från [taket](ceiling). Han kände [kylan](cold) i luften. Han såg [ingenting](nothing), men han visste att det fanns något där. Han hörde ett [ljud](sound) framåt. Kanske var det en [skatt](treasure)? Han fortsatte [längre](deeper) in i grottan. John kände sig [spänd](excited) och lite [rädd](scared). Han ville veta vad som fanns i slutet. Han hörde ett svagt [eko](echo) av sina [steg](steps). Han kände [spänningen](excitement). Han var [nyfiken](curious) på vad som fanns [där](there). [Mysteriet](mystery) lockade honom.
 </txt>
 <opt>
-Vad ska de göra nu? [Gå in i huset] [Ropa på en trollkarl igen] [Utforska rummen]
+Vad ska John göra? [Gå framåt] [Lyssna efter ljudet] [Stanna och vila]
 </opt>
 <exe>
-John Singer tog tag i dörrhandtaget. Det var [___(kallt)] och [___(fuktigt)].
+<q>Vad hade John i sin hand?</q>
+[En fackla](rätt) [En bok] [En karta]
+<q>Hur kändes luften i grottan?</q>
+[Kall](rätt) [Varm] [Vindig]
 </exe>
 ```

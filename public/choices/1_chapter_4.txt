@@ -1,14 +1,17 @@
 ```
 <img>
-A young boy with messy brown hair and bright, curious eyes stands in a grand, old library. Sunlight streams through tall, arched windows, illuminating dust motes dancing in the air. He wears a simple tunic and pants, and he's surrounded by towering shelves packed with books of all shapes and sizes. He is looking at a large, leather-bound book with golden clasps, its pages slightly open and glowing with a soft, ethereal light. The air is filled with an aura of magic and mystery. A few other books lie open on a nearby table.
+A young boy, John Singer, with messy brown hair and wide, curious eyes, stands in a brightly lit classroom. Sunlight streams through large, arched windows, illuminating dust motes dancing in the air. The room is filled with desks made of polished wood, and strange, glowing orbs float above each one. Other students, dressed in robes, are practicing magic, creating sparks and small bursts of light. John is holding a worn, leather-bound book in his hands, looking a bit nervous but eager to learn. A kind-looking teacher with a long, grey beard stands at the front of the class, pointing to a complex diagram on a chalkboard.
 </img>
 <txt>
-John hade gått tillbaka till [biblioteket](library). Han såg på den [magiska](magical) boken. Den såg gammal och [mystisk](mysterious) ut. Han ville hitta en [trollformel](spell). Boken låg på ett [bord](table). John tog ett djupt andetag. Han kände en [känsla](feeling) av [äventyr](adventure). Skulle han läsa den?
+John Singer gick in i ett [klassrum](classroom). Rummet var stort och ljust. [Solskenet](sunlight) lyste genom [fönstren](windows). Det fanns många [elever](students) i rummet. Alla [elever](students) hade [magiska](magic) [böcker](books). John Singer såg en [trollkarl](wizard) som [lärde](teaching). Han kände sig lite [nervös](nervous), men också [spänd](excited). Han bestämde sig för att lära sig [magi](magic).
 </txt>
 <opt>
-Vad vill John göra? [Öppna boken] [Gå till en annan del av biblioteket] [Lämna biblioteket]
+Vad ska John göra? [Gå fram till läraren] [Öppna boken] [Prata med en annan elev]
 </opt>
 <exe>
-John såg [____(en) bok] på bordet.
+<q>Var var John?</q>
+[I ett klassrum](rätt) [I ett slott] [I en skog]
+<q>Vad hade alla elever?</q>
+[Magiska böcker](rätt) [Svärd] [Kvastar]
 </exe>
 ```
