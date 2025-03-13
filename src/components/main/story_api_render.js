@@ -55,6 +55,7 @@ export const getChaptersByStory = async (storyId) => {
       data_to_return = data_to_return.map((chapter) => ({
         ...chapter,
         opt: parseText(chapter.opt),
+        exe: parseExe(chapter.exe, chapter.metadata.type),
       }));
       return data_to_return;
     } else {
@@ -65,6 +66,20 @@ export const getChaptersByStory = async (storyId) => {
     return [];
   }
 };
+
+function parseExe(input, type) {
+    // Extract text outside of brackets
+    const outsideText = input.replace(/\[.*?\]/g, '').trim();
+    
+    // Extract text inside brackets
+    const insideOptions = input.match(/\[(.*?)\]/g).map(option => option.slice(1, -1));
+    
+    return {
+        "txt": outsideText,
+        "options": insideOptions,
+        "correctAnswer": insideOptions[0]
+    };
+}
 
 function parseText(input) {
     // Extract text outside of brackets

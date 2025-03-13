@@ -6,7 +6,7 @@ import ComprehensionComponent from './ComprehensionComponent';
 import SelectOptionComponent from './SelectOptionComponent.js';
 import StoryComplete from './StoryComplete';
 import './StoryReader.css';
-import { getChaptersByStory } from './story_api_render.js';
+import { getChaptersByStory, getStoryById } from './story_api_render.js';
 
 const StoryReader = ({ userData, updateUserStats }) => {
   const navigate = useNavigate();
@@ -21,12 +21,13 @@ const StoryReader = ({ userData, updateUserStats }) => {
 
   useEffect(() => {
     const fetchStory = async () => {
+      const story = await getStoryById(storyId);
       const chapters = await getChaptersByStory(storyId);
       console.log(chapters);
       if (chapters.length > 0) {
         const formattedStory = {
           id: storyId,
-          title: chapters[0]?.metadata?.title || "Untitled Story",
+          title: story.title || "Untitled Story",
           pages: chapters.map(chapter => ([{
             type: "reading",
             imageUrl: chapter.image || "https://via.placeholder.com/300",
@@ -37,14 +38,13 @@ const StoryReader = ({ userData, updateUserStats }) => {
             imageUrl: chapter.image || "https://via.placeholder.com/300",
             text: chapter.opt.txt || "",
             options: chapter.opt.options || [],
-            correctAnswer: chapter.metadata?.correctAnswer || ""
           },
           {
-            type: "comprehension",
+            type: chapter.metadata?.type || "reading",
             imageUrl: chapter.image || "https://via.placeholder.com/300",
-            question: chapter.metadata?.question || "",
-            options: chapter.metadata?.options || [],
-            correctAnswer: chapter.metadata?.correctAnswer || ""
+            question: chapter.exe.txt || "",
+            options: chapter.exe.options || [],
+            correctAnswer: chapter.exe.correctAnswer || ""
           }
           ]))
         };
@@ -159,9 +159,9 @@ const StoryReader = ({ userData, updateUserStats }) => {
         return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} onNext={() => handleNext(true)} />;
       case 'selectOption':
         return <SelectOptionComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} onNext={handleNext} />;
-      case 'fillBlank':
-        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
-      case 'comprehension':
+      case 'fill_in_blanks':
+        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
+      case 'comprehension_text':
         return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
