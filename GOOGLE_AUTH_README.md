@@ -1,4 +1,4 @@
-# Google Authentication Setup for Svenska Ugglan
+./.# Google Authentication Setup for Svenska Ugglan
 
 This guide will walk you through setting up Google Authentication for the Svenska Ugglan application.
 

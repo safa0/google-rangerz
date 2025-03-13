@@ -158,14 +158,14 @@
 
 .next-button,
 .submit-button {
-  background-color: #4285f4;
+  background-color: #000080;
   border: none;
   color: white;
 }
 
 .next-button:hover,
 .submit-button:hover {
-  background-color: #3367d6;
+  background-color: #000080;
 }
 
 .submit-button:disabled,

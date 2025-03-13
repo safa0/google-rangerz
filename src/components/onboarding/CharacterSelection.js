@@ -39,7 +39,11 @@ const CharacterSelection = ({ updateUserData, userData }) => {
     : `Välj en karaktär för ${userData.childName}`;
 
   return (
-    <div className="onboarding-container">
+    <div className="onboarding-container" style={{ 
+      maxWidth: '700px',  // Increased from default
+      padding: '0 20px',  // Add horizontal padding
+      margin: '0 auto'    // Center the container
+    }}>
       <div className="onboarding-header">
         <button className="back-button" onClick={() => navigate(-1)}>
           ←
@@ -49,28 +53,58 @@ const CharacterSelection = ({ updateUserData, userData }) => {
         </div>
       </div>
 
-      <h1 className="onboarding-title">{title}</h1>
+      <h1 className="onboarding-title" style={{ marginBottom: '30px' }}>{title}</h1>
 
-      <div className="character-grid">
-        {characters.map(character => (
-          <div
-            key={character.id}
-            className={`character-option ${selectedCharacter === character.id ? 'selected' : ''}`}
-            onClick={() => handleCharacterSelect(character.id)}
-            style={{ backgroundColor: `${character.color}20` }} // 20 represents 12% opacity
-          >
-            <div style={{ fontSize: '36px', lineHeight: '1' }}>
-              {character.emoji}
+      {/* Controlled width of the grid container */}
+      <div style={{ 
+        width: '100%', 
+        maxWidth: '550px',  // Match the width in the image
+        margin: '0 auto 40px'  // Center and add bottom margin
+      }}>
+        <div className="character-grid" style={{ 
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '20px',
+          width: '100%'
+        }}>
+          {characters.map(character => (
+            <div
+              key={character.id}
+              className={`character-option ${selectedCharacter === character.id ? 'selected' : ''}`}
+              onClick={() => handleCharacterSelect(character.id)}
+              style={{ 
+                backgroundColor: `${character.color}20`, // 20 represents 12% opacity
+                aspectRatio: '1/1',  // Keep it square
+                borderRadius: '50%',  // Make it round
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                border: selectedCharacter === character.id ? `3px solid #006AA7` : '3px solid transparent',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <div style={{ fontSize: '36px' }}>
+                {character.emoji}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="button-container">
+      <div className="button-container" style={{ 
+        maxWidth: '550px',  // Match the width in the image
+        margin: '0 auto',   // Center the button
+        width: '100%'
+      }}>
         <button
           className="primary-button"
           disabled={!selectedCharacter}
           onClick={handleContinue}
+          style={{
+            height: '56px',
+            borderRadius: '8px'
+          }}
         >
           FORTSÄTT
         </button>

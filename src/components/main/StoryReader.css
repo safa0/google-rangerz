@@ -41,7 +41,7 @@
   
   .progress-fill {
     height: 100%;
-    background-color: #58CC02;
+    background-color: #000080;
     border-radius: 8px;
     transition: width 0.5s ease;
   }
