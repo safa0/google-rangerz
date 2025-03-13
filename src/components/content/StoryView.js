@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { mockInitializeStory } from '../../services/api';
+import { mockInitializeStory, generateImage, mockGenerateImage, continueStory } from '../../services/api';
 import './StoryView.css';
 
 const StoryView = () => {
@@ -10,20 +10,38 @@ const StoryView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [story, setStory] = useState(null);
+  const [storyImage, setStoryImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(true);
 
   // Get story data from location state if available
   const storyTitle = location.state?.storyTitle;
   const storyDescription = location.state?.storyDescription;
+  const passedStoryImage = location.state?.storyImage;
+  const storyImgDescription = location.state?.storyImgDescription;
+  const useRealApi = location.state?.useRealApi || false;
+  const userData = location.state?.userData;
+
+  console.log('🔄 StoryView: Initializing with params:', {
+    id,
+    storyTitle,
+    storyDescription,
+    hasPassedImage: !!passedStoryImage,
+    storyImgDescription,
+    useRealApi,
+    userData
+  });
 
   useEffect(() => {
     const loadStory = async () => {
+      console.log('🔄 StoryView: Loading story data');
       try {
         // If we have story data from navigation state, use it
         if (storyTitle && storyDescription) {
+          console.log('🔄 StoryView: Using passed story data');
+          // Set basic story data
           setStory({
             title: storyTitle,
             content: storyDescription,
-            image_url: `https://via.placeholder.com/800x400?text=${encodeURIComponent(storyTitle)}`,
             options: [
               { id: "option1", text: "Continue the adventure" },
               { id: "option2", text: "Try a different approach" },
@@ -36,18 +54,50 @@ const StoryView = () => {
               { word: "Äventyr", translation: "Adventure", pronunciation: "eh-ven-teer" }
             ]
           });
+          
+          // Use passed image if available, otherwise generate one
+          if (passedStoryImage) {
+            console.log('🔄 StoryView: Using passed image');
+            setStoryImage(passedStoryImage);
+            setImageLoading(false);
+          } else if (storyImgDescription) {
+            console.log('🔄 StoryView: Generating image from description');
+            setImageLoading(true);
+            try {
+              // Choose between real API and mock based on flag
+              console.log(`🔄 StoryView: Using ${useRealApi ? 'real' : 'mock'} API for image generation`);
+              const imageData = useRealApi 
+                ? await generateImage(storyImgDescription)
+                : await mockGenerateImage(storyImgDescription);
+              
+              console.log('🔄 StoryView: Image generated successfully');
+              setStoryImage(imageData);
+            } catch (imgErr) {
+              console.error('❌ StoryView: Error generating image:', imgErr);
+              setStoryImage(`https://via.placeholder.com/800x400?text=${encodeURIComponent(storyTitle)}`);
+            } finally {
+              setImageLoading(false);
+            }
+          } else {
+            console.log('🔄 StoryView: No image description, using placeholder');
+            setStoryImage(`https://via.placeholder.com/800x400?text=${encodeURIComponent(storyTitle)}`);
+            setImageLoading(false);
+          }
         } else {
           // Otherwise, fetch from API based on ID
+          console.log('🔄 StoryView: No passed data, fetching from API');
           const response = await mockInitializeStory();
+          console.log('🔄 StoryView: Received response from mockInitializeStory:', response);
           
           if (response.stories && response.stories.length > 0) {
             const storyIndex = parseInt(id) - 1;
+            console.log(`🔄 StoryView: Using story at index ${storyIndex}`);
             const storyData = response.stories[storyIndex] || response.stories[0];
             
+            // Set basic story data
             setStory({
               title: storyData.title,
               content: storyData.txt,
-              image_url: storyData.img || `https://via.placeholder.com/800x400?text=${encodeURIComponent(storyData.title)}`,
               options: [
                 { id: "option1", text: "Continue the adventure" },
                 { id: "option2", text: "Try a different approach" },
@@ -60,27 +110,50 @@ const StoryView = () => {
                 { word: "Äventyr", translation: "Adventure", pronunciation: "eh-ven-teer" }
               ]
             });
+            
+            // Generate image
+            console.log('🔄 StoryView: Generating image for story');
+            setImageLoading(true);
+            try {
+              // Choose between real API and mock based on flag
+              console.log(`🔄 StoryView: Using ${useRealApi ? 'real' : 'mock'} API for image generation`);
+              const imageData = useRealApi 
+                ? await generateImage(storyData.img_description)
+                : await mockGenerateImage(storyData.img_description);
+              
+              console.log('🔄 StoryView: Image generated successfully');
+              setStoryImage(imageData);
+            } catch (imgErr) {
+              console.error('❌ StoryView: Error generating image:', imgErr);
+              setStoryImage(`https://via.placeholder.com/800x400?text=${encodeURIComponent(storyData.title)}`);
+            } finally {
+              setImageLoading(false);
+            }
           } else {
+            console.error('❌ StoryView: No stories found in response');
             throw new Error("Story not found");
           }
         }
       } catch (err) {
+        console.error('❌ StoryView: Error loading story:', err);
         setError("Failed to load story. Please try again.");
-        console.error("Error loading story:", err);
       } finally {
+        console.log('🔄 StoryView: Finished loading story');
         setLoading(false);
       }
     };
 
     loadStory();
-  }, [id, storyTitle, storyDescription]);
+  }, [id, storyTitle, storyDescription, passedStoryImage, storyImgDescription, useRealApi]);
 
   const handleOptionClick = (optionId) => {
+    console.log(`🖱️ StoryView: Option ${optionId} clicked`);
     // In a real implementation, this would continue the story
     alert(`You selected: ${optionId}`);
   };
 
   const goBack = () => {
+    console.log('🖱️ StoryView: Back button clicked, navigating to init-story');
     navigate('/init-story');
   };
 
@@ -108,7 +181,11 @@ const StoryView = () => {
       <h1>{story.title}</h1>
       
       <div className="story-image-container">
-        <img src={story.image_url} alt={story.title} />
+        {imageLoading ? (
+          <div className="image-loading">Loading image...</div>
+        ) : (
+          <img src={storyImage} alt={story.title} />
+        )}
       </div>
       
       <div className="story-content">
