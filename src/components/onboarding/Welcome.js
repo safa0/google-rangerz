@@ -1,6 +1,8 @@
 import React, { useState, useEffect, memo, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../App';
+import axios from 'axios';
+import './Welcome.css';
 
 // Mock Google Auth - this will be replaced with actual Google Auth later
 const Welcome = () => {
@@ -32,15 +34,9 @@ const Welcome = () => {
 
   // Handle mock Google Sign-In
   const handleMockLogin = async (email) => {
-    if (!email) {
-      setError('Please enter your email');
-      return;
-    }
-    
+    setIsLoading(true);
+    setError('');
     try {
-      setIsLoading(true);
-      setError(null);
-
       console.log("Attempting login/signup with email:", email, "isSignup:", isSignup);
       
       const name = email.split('@')[0]; // Get name from email for new users
@@ -81,11 +77,11 @@ const Welcome = () => {
           navigate('/stories');
         }
       } else {
-        setError(data.message || 'Login failed');
+        setError('Login failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error during login/signup:', error);
-      setError(`Login failed: ${error.message}. Please try again.`);
+      console.error('Login error:', error);
+      setError(error.response?.data?.error || 'An error occurred during login. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -95,6 +91,11 @@ const Welcome = () => {
   const openAuthModal = (signup) => {
     setIsSignup(signup);
     setShowMockLogin(true);
+  };
+
+  // New function to bypass login and go directly to InitStory
+  const goDirectlyToInitStory = () => {
+    navigate('/init-story');
   };
 
   // If user is authenticated and has completed onboarding, don't render the welcome page
@@ -176,88 +177,53 @@ const Welcome = () => {
           onCancel={() => setShowMockLogin(false)}
         />
       )}
+      
+      {/* Dummy button to bypass login */}
+      <div className="bypass-login-container">
+        <button 
+          className="bypass-login-button" 
+          onClick={goDirectlyToInitStory}
+          disabled={isLoading}
+        >
+          Skip Login (Demo Mode)
+        </button>
+      </div>
     </div>
   );
 };
 
 // Extracted as a separate component to prevent re-renders
 const MockLoginForm = memo(({ isLoading, isSignup, onLogin, onCancel }) => {
-  const [mockEmail, setMockEmail] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(mockEmail);
+    if (!email) {
+      setError('Please enter your email');
+      return;
+    }
+    onLogin(email);
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '8px',
-        width: '300px',
-        maxWidth: '90%'
-      }}>
-        <h2 style={{ marginTop: 0 }}>{isSignup ? 'Sign Up' : 'Login'}</h2>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
-            <input 
-              type="email" 
-              value={mockEmail} 
-              onChange={(e) => setMockEmail(e.target.value)}
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                borderRadius: '4px', 
-                border: '1px solid #ccc' 
-              }}
-              required
-            />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <button 
-              type="button" 
-              onClick={onCancel}
-              style={{ 
-                padding: '8px 16px', 
-                backgroundColor: '#f0f0f0', 
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Cancel
-            </button>
-            <button 
-              type="submit" 
-              disabled={isLoading}
-              style={{ 
-                padding: '8px 16px', 
-                backgroundColor: isSignup ? '#58CC02' : '#4285F4', 
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              {isLoading ? 'Loading...' : isSignup ? 'Sign Up' : 'Login'}
-            </button>
-          </div>
-        </form>
+    <form onSubmit={handleSubmit} className="login-form">
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          disabled={isLoading}
+        />
+        {error && <div className="error-message">{error}</div>}
       </div>
-    </div>
+      <button type="submit" className="login-button" disabled={isLoading}>
+        {isLoading ? 'Logging in...' : 'Login'}
+      </button>
+    </form>
   );
 });
 

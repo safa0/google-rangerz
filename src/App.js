@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
 
 // Components
@@ -9,7 +10,7 @@ import ChildName from './components/onboarding/ChildName';
 import ChildAge from './components/onboarding/ChildAge';
 import CharacterSelection from './components/onboarding/CharacterSelection';
 import InterestSelection from './components/onboarding/InterestSelection';
-import StoriesExplorer from './components/main/StoriesExplorer';
+import StoriesExplorer from './components/content/InitStory';
 import StoryReader from './components/main/StoryReader';
 import ProfilePage from './components/profile/ProfilePage';
 import InitStory from './components/content/InitStory';
@@ -189,7 +190,7 @@ function App() {
     }
     
     if (loading) {
-      return <div className="loading">Loading...</div>;
+      return <div>Loading...</div>;
     }
     
     if (!user) {
@@ -211,6 +212,11 @@ function App() {
   if (!authInitialized) {
     return <div className="app-loading">Loading application...</div>;
   }
+
+  // Allow direct access to InitStory
+  const InitStoryRoute = ({ children }) => {
+    return children;
+  };
 
   return (
     <AuthContext.Provider value={{ 
@@ -249,14 +255,7 @@ function App() {
               </ProtectedRoute>
             } />
        
-            {/* Add the InitStory route */}
-            <Route path="/init-story" element={
-              <ProtectedRoute>
-                <InitStory />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
       </Router>
