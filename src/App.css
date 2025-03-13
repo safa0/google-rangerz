@@ -225,13 +225,16 @@ body {
   border-radius: 50%;
   overflow: hidden;
   aspect-ratio: 1;
-  border: 3px solid transparent;
+  border: 3px solid transparent; /* Default border */
   cursor: pointer;
   background-color: #f0f0f0;
+  transition: border 0.2s ease; /* Smooth transition for border changes */
 }
 
 .interest-option.selected {
-  border-color: var(--primary-color);
+  
+  border: 6px solid var(--swedish-blue);
+  box-shadow: 0 0 0 2px rgba(0, 106, 167, 0.3);
 }
 
 .interest-option img {
