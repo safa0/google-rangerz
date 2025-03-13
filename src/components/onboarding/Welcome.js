@@ -1,34 +1,46 @@
-import React, { useState, useEffect, memo, useContext } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../App';
 
 // Mock Google Auth - this will be replaced with actual Google Auth later
 const Welcome = () => {
   const navigate = useNavigate();
-  const { user, login, isAuthenticated, loading } = useContext(AuthContext);
-  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   
   // For mock login modal
   const [showMockLogin, setShowMockLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
-  // Check if user is already logged in, only navigate if they are
+  // Check if user is already logged in
   useEffect(() => {
-    if (isAuthenticated && !loading) {
-      console.log("User is already authenticated:", user);
-      
-      // Only redirect to stories if user has completed onboarding
-      if (!user.isNewUser && user.onboardingCompleted) {
-        console.log("User already completed onboarding, redirecting to stories");
-        navigate('/stories');
-      } else {
-        console.log("User needs onboarding, redirecting to onboarding flow");
-        navigate('/who-is-learning');
+    const checkLoginStatus = async () => {
+      try {
+        // Set loading state
+        setIsLoading(true);
+        
+        const response = await fetch('http://localhost:5000/api/auth/user', {
+          method: 'GET',
+          credentials: 'include', // Important for cookies/session
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          setUser(data.user);
+          // If user is already logged in, redirect to stories page
+          navigate('/stories');
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      } finally {
+        // Clear loading state
+        setIsLoading(false);
       }
-    }
-  }, [isAuthenticated, loading, navigate, user]);
+    };
+    
+    checkLoginStatus();
+  }, [navigate]);
 
   // Handle mock Google Sign-In
   const handleMockLogin = async (email) => {
@@ -41,7 +53,7 @@ const Welcome = () => {
       setIsLoading(true);
       setError(null);
 
-      console.log("Attempting login/signup with email:", email, "isSignup:", isSignup);
+      console.log("Attempting login/signup with email:", email);
       
       const name = email.split('@')[0]; // Get name from email for new users
       
@@ -53,7 +65,7 @@ const Welcome = () => {
         body: JSON.stringify({
           email,
           name,
-          isNewUser: isSignup, // This is critical - make sure we tell the backend if this is a signup
+          isNewUser: isSignup,
         }),
         credentials: 'include', // Important for cookies/session
       });
@@ -63,21 +75,20 @@ const Welcome = () => {
       }
 
       const data = await backendResponse.json();
-      console.log("Login/signup response:", data);
+      console.log("Login response:", data);
 
       if (data.status === 'success') {
-        // Store the user data in context
-        login(data.user);
+        setUser(data.user);
         setShowMockLogin(false);
         
-        // Make explicit routing decision based on user status
-        if (isSignup || data.user.isNewUser || !data.user.onboardingCompleted) {
-          console.log("New user or onboarding incomplete, redirecting to onboarding flow");
+        // Direct to different routes based on user status
+        if (data.user.isNewUser || !data.user.onboardingCompleted) {
+          console.log("User needs onboarding, redirecting to onboarding flow");
           // For new users, go to onboarding flow
           navigate('/who-is-learning');
         } else {
-          console.log("Existing user with completed onboarding, redirecting to stories");
-          // For existing users with completed onboarding, go directly to stories page
+          console.log("User already completed onboarding, redirecting to stories");
+          // For existing users, go directly to stories page
           navigate('/stories');
         }
       } else {
@@ -91,16 +102,24 @@ const Welcome = () => {
     }
   };
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await fetch('http://localhost:5000/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      setUser(null);
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   // Open login/signup modal with appropriate mode
   const openAuthModal = (signup) => {
     setIsSignup(signup);
     setShowMockLogin(true);
   };
-
-  // If user is authenticated and has completed onboarding, don't render the welcome page
-  if (isAuthenticated && !loading && user && !user.isNewUser && user.onboardingCompleted) {
-    return <div className="loading">Redirecting to stories...</div>;
-  }
 
   return (
     <div className="welcome-container">
@@ -133,7 +152,7 @@ const Welcome = () => {
         </div>
       )}
       
-      {(loading || isLoading) && !showMockLogin ? (
+      {isLoading && !showMockLogin ? (
         <div className="loading-spinner" style={{ marginBottom: '20px' }}>
           Loading...
         </div>
@@ -175,6 +194,25 @@ const Welcome = () => {
           onLogin={handleMockLogin}
           onCancel={() => setShowMockLogin(false)}
         />
+      )}
+      
+      {user && (
+        <div className="user-info" style={{ marginTop: '20px' }}>
+          <p>Logged in as: {user.name}</p>
+          <button 
+            onClick={handleLogout}
+            style={{ 
+              padding: '8px 16px', 
+              backgroundColor: '#f0f0f0', 
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginTop: '10px'
+            }}
+          >
+            Log Out
+          </button>
+        </div>
       )}
     </div>
   );
