@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './StoryComponents.css';
 
-const ComprehensionComponent = ({ imageUrl, question, options, correctAnswer, onNext }) => {
+const ComprehensionComponent = ({ imageUrl, question, onNext }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);

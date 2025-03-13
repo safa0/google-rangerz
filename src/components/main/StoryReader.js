@@ -41,11 +41,8 @@ const StoryReader = ({ userData, updateUserStats }) => {
           },
           {
             type: JSON.parse(chapter.metadata).exercise_type || "reading",
-            text: chapter.txt || "",
             imageUrl: chapter.image || "https://via.placeholder.com/300",
-            question: chapter.exe.txt || "",
-            options: chapter.exe.options || [],
-            correctAnswer: chapter.exe.correctAnswer || ""
+            question: chapter.exe || "",
           }
           ]))
         };
@@ -164,10 +161,10 @@ const StoryReader = ({ userData, updateUserStats }) => {
         return <SelectOptionComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.text} options={current_stage_page.options} onNext={handleNext} />;
       case 'fill_in_blanks':
         console.log("fill_in_blanks");
-        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
+        return <FillBlankComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
       case 'comprehension_text':
         console.log("comprehension_text");
-        return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} options={current_stage_page.options} correctAnswer={current_stage_page.correctAnswer} onNext={handleNext} />;
+        return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={current_stage_page.question} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
     }
