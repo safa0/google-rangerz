@@ -1,0 +1,15 @@
+```
+<img>
+A young boy, John, with short brown hair and a curious expression, sits on a large, moss-covered rock in a dense forest. He wears hiking boots, a green jacket, and carries a backpack. Beside him lies an open book with colorful illustrations. The sun filters through the tall trees, creating dappled light on the forest floor. In the background, a crystal-clear stream cascades over smooth stones. The overall atmosphere is peaceful, with a hint of mystery, as if the forest holds secrets waiting to be discovered. The time is a sunny afternoon.
+</img>
+<txt>
+John satt på en stor [sten](stone) i [skogen](forest). Han [öppnade](opened) sin [bok](book) och började läsa. Boken handlade om [fjäll](mountain) och äventyr. Han önskade att han kunde [vandra](hike) uppför ett [fjäll](mountain) och se allt från toppen. Han kände [doften](smell) av [skog](forest) och [vatten](water). Vilka [hemligheter](secrets) gömmer sig i skogen?
+</txt>
+<opt>
+Vad ska John göra nu? [Läsa vidare i boken] [Gå ner till vattnet] [Packa ihop och gå hem]
+</opt>
+<exe>
+<exe>
+Matcha följande ord med deras rätta betydelser:
+[skog](forest) [vatten](water) [tält](tent) [eld](fire) [fjäll](mountain)
+</exe>

@@ -5,6 +5,7 @@ import FillBlankComponent from './FillBlankComponent';
 import ComprehensionComponent from './ComprehensionComponent';
 import StoryComplete from './StoryComplete';
 import './StoryReader.css';
+import { getChaptersByStory } from './story_api_render.js';
 
 const StoryReader = ({ userData, updateUserStats }) => {
   const navigate = useNavigate();
@@ -16,47 +17,45 @@ const StoryReader = ({ userData, updateUserStats }) => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [storyData, setStoryData] = useState(null);
 
-  // This would normally be fetched from an API based on storyId
   useEffect(() => {
-    // Mock story data
-    const mockStory = {
-      id: 1,
-      title: "Zari and The Giganto-Pop",
-      pages: [
-        {
-          type: "intro",
-          imageUrl: "/stories/zari_cover.png",
-          title: "Zari and The Giganto-Pop"
-        },
-        {
-          type: "reading",
-          imageUrl: "/stories/candy_store.png",
-          text: "Lily is looking at the black and purple gummy hearts."
-        },
-        {
-          type: "fillBlank",
-          imageUrl: "/stories/bathroom.png",
-          text: "First, Oscar ___ water and a little shampoo.",
-          options: ["mix", "mixed"],
-          correctAnswer: "mixed"
-        },
-        {
-          type: "comprehension",
-          imageUrl: "/stories/question.png",
-          question: "What color are the gummy hearts?",
-          options: ["Red and blue", "Black and purple", "Green and yellow"],
-          correctAnswer: "Black and purple"
-        },
-        {
-          type: "reading",
-          imageUrl: "/stories/zari_happy.png",
-          text: "Zari is very happy with her new candy!"
-        }
-      ]
+    const fetchStory = async () => {
+      const chapters = await getChaptersByStory(storyId);
+      console.log(chapters);
+      if (chapters.length > 0) {
+        const formattedStory = {
+          id: storyId,
+          title: chapters[0]?.metadata?.title || "Untitled Story",
+          pages: chapters.map(chapter => ([{
+            type: "reading",
+            imageUrl: chapter.image || "https://via.placeholder.com/300",
+            text: chapter.txt || "",
+            options: chapter.metadata?.options || [],
+            correctAnswer: chapter.metadata?.correctAnswer || ""
+          },
+          {
+            type: "fillBlank",
+            imageUrl: chapter.image || "https://via.placeholder.com/300",
+            text: chapter.txt || "",
+            options: chapter.metadata?.options || [],
+            correctAnswer: chapter.metadata?.correctAnswer || ""
+          },
+          {
+            type: "comprehension",
+            imageUrl: chapter.image || "https://via.placeholder.com/300",
+            question: chapter.metadata?.question || "",
+            options: chapter.metadata?.options || [],
+            correctAnswer: chapter.metadata?.correctAnswer || ""
+          }
+          ]))
+        };
+        setStoryData(formattedStory);
+        setStartTime(Date.now());
+      } else {
+        console.error("No chapters found for this story.");
+      }
     };
 
-    setStoryData(mockStory);
-    setStartTime(Date.now());
+    fetchStory();
   }, [storyId]);
 
   const handleNext = (isCorrect = true) => {
@@ -67,12 +66,9 @@ const StoryReader = ({ userData, updateUserStats }) => {
     }
 
     if (storyData && currentPage >= storyData.pages.length - 1) {
-      // Story completed - calculate final time
       const endTime = Date.now();
-      const totalTime = Math.floor((endTime - startTime) / 1000);
-      setTimeElapsed(totalTime);
-      
-      // Update user stats
+      setTimeElapsed(Math.floor((endTime - startTime) / 1000));
+
       updateUserStats({
         totalXP: userData.stats.totalXP + score,
         storiesCompletedToday: userData.stats.storiesCompletedToday + 1,
@@ -81,63 +77,40 @@ const StoryReader = ({ userData, updateUserStats }) => {
         longestStreak: Math.max(userData.stats.longestStreak, updateStreak(userData.stats.currentStreak))
       });
 
-      // Move to next page (StoryComplete page)
       setCurrentPage(prev => prev + 1);
     } else {
-      // Move to next page
       setCurrentPage(prev => prev + 1);
     }
   };
-  
-  // Helper function to update streak
+
   const updateStreak = (currentStreak) => {
-    // Check if user already completed a story today
     const lastCompletionDate = localStorage.getItem('lastStoryCompletionDate');
     const today = new Date().toDateString();
-    
-    if (lastCompletionDate === today) {
-      // Already completed a story today, streak stays the same
-      return currentStreak;
+
+    if (lastCompletionDate === today) return currentStreak;
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (lastCompletionDate === yesterday.toDateString()) {
+      localStorage.setItem('lastStoryCompletionDate', today);
+      return currentStreak + 1;
     }
-    
-    // Check if this is consecutive days
-    if (lastCompletionDate) {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayString = yesterday.toDateString();
-      
-      if (lastCompletionDate === yesterdayString) {
-        // Completed a story yesterday, streak increases
-        localStorage.setItem('lastStoryCompletionDate', today);
-        return currentStreak + 1;
-      }
-    }
-    
-    // First story or streak broken
+
     localStorage.setItem('lastStoryCompletionDate', today);
     return 1;
   };
 
   const handleBack = () => {
     if (currentPage === 0) {
-      // Return to stories explorer
       navigate('/stories');
     } else {
       setCurrentPage(prev => prev - 1);
     }
   };
 
-  const restartStory = () => {
-    setCurrentPage(0);
-    setScore(0);
-    setMistakes(0);
-    setStartTime(Date.now());
-  };
-
   const renderCurrentPage = () => {
     if (!storyData) return <div className="loading-container">Loading...</div>;
-
-    // Check if we've reached the end
     if (currentPage >= storyData.pages.length) {
       const totalQuestions = storyData.pages.filter(
         page => page.type === 'fillBlank' || page.type === 'comprehension'
@@ -164,52 +137,20 @@ const StoryReader = ({ userData, updateUserStats }) => {
         return (
           <div className="story-intro">
             <div className="story-cover">
-              <img 
-                src={page.imageUrl} 
-                alt={page.title}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://via.placeholder.com/300x300?text=Book+Cover';
-                }}
-              />
+              <img src={page.imageUrl} alt={page.title} />
             </div>
             <h2 className="story-title">{page.title}</h2>
-            <button 
-              className="story-start-button"
-              onClick={() => handleNext(true)}
-            >
+            <button className="story-start-button" onClick={() => handleNext(true)}>
               <span className="arrow-icon">→</span>
             </button>
           </div>
         );
       case 'reading':
-        return (
-          <ReadingComponent 
-            imageUrl={page.imageUrl}
-            text={page.text}
-            onNext={() => handleNext(true)}
-          />
-        );
+        return <ReadingComponent imageUrl={page.imageUrl} text={page.text} onNext={() => handleNext(true)} />;
       case 'fillBlank':
-        return (
-          <FillBlankComponent 
-            imageUrl={page.imageUrl}
-            text={page.text}
-            options={page.options}
-            correctAnswer={page.correctAnswer}
-            onNext={handleNext}
-          />
-        );
+        return <FillBlankComponent imageUrl={page.imageUrl} text={page.text} options={page.options} correctAnswer={page.correctAnswer} onNext={handleNext} />;
       case 'comprehension':
-        return (
-          <ComprehensionComponent 
-            imageUrl={page.imageUrl}
-            question={page.question}
-            options={page.options}
-            correctAnswer={page.correctAnswer}
-            onNext={handleNext}
-          />
-        );
+        return <ComprehensionComponent imageUrl={page.imageUrl} question={page.question} options={page.options} correctAnswer={page.correctAnswer} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
     }
@@ -218,21 +159,13 @@ const StoryReader = ({ userData, updateUserStats }) => {
   return (
     <div className="story-reader">
       <div className="story-header">
-        <button className="back-button" onClick={handleBack}>
-          ×
-        </button>
+        <button className="back-button" onClick={handleBack}>×</button>
         <div className="progress-bar">
           {storyData && (
-            <div 
-              className="progress-fill" 
-              style={{ 
-                width: `${(currentPage / storyData.pages.length) * 100}%` 
-              }}
-            ></div>
+            <div className="progress-fill" style={{ width: `${(currentPage / storyData.pages.length) * 100}%` }}></div>
           )}
         </div>
       </div>
-      
       <div className="story-content">
         {renderCurrentPage()}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getStoriesbyUserID } from './story_api_render.js';  // Import the new API function
 import { AuthContext } from '../../App';
 
 const StoriesExplorer = ({ userData }) => {
@@ -19,7 +20,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Zari and The Giganto-Pop",
       category: 'animals',
       difficulty: 'beginner',
-      imageUrl: '',
+      thumbnail: '',
       color: '#8BC34A'
     },
     {
@@ -27,7 +28,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Rymdresan",
       category: 'space',
       difficulty: 'intermediate',
-      imageUrl: '',
+      thumbnail: '',
       color: '#3F51B5'
     },
     {
@@ -35,7 +36,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Fotbollsmatchen",
       category: 'sports',
       difficulty: 'beginner',
-      imageUrl: '',
+      thumbnail: '',
       color: '#FF5722'
     },
     {
@@ -43,7 +44,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Musikskolan",
       category: 'music',
       difficulty: 'advanced',
-      imageUrl: '',
+      thumbnail: '',
       color: '#9C27B0'
     },
     {
@@ -51,7 +52,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Skogsäventyret",
       category: 'nature',
       difficulty: 'intermediate',
-      imageUrl: '',
+      thumbnail: '',
       color: '#4CAF50'
     },
     {
@@ -59,7 +60,7 @@ const StoriesExplorer = ({ userData }) => {
       title: "Vikingaresan",
       category: 'history',
       difficulty: 'advanced',
-      imageUrl: '',
+      thumbnail: '',
       color: '#795548'
     }
   ];
@@ -107,7 +108,18 @@ const StoriesExplorer = ({ userData }) => {
 
     fetchUserData();
     // Initialize all stories
-    setStories(mockStories);
+    const fetchStories = async () => {
+      // user id is hardcoded for now
+      // if (!userData || !userData.id) return;
+      const fetchedStories = await getStoriesbyUserID("user_123");
+      if (fetchedStories.length > 0) {
+        setStories(fetchedStories);
+      } else {
+        console.error("No stories found for user.");
+      }
+    };
+
+    fetchStories();
   }, [userData]);
 
   // Filter stories when interests change or tab changes
@@ -149,7 +161,6 @@ const StoriesExplorer = ({ userData }) => {
     setFilteredStories(searchResults);
   }, [searchQuery, stories]);
 
-  // Function to handle story selection
   const handleStorySelect = (storyId) => {
     navigate(`/story/${storyId}`);
   };
@@ -263,20 +274,23 @@ const StoriesExplorer = ({ userData }) => {
 
       {/* Show filtered stories */}
       <div className="stories-grid">
-        {filteredStories.length > 0 ? (
-          filteredStories.map(story => (
+        {stories.length === 0 ? (
+          <p>No stories available</p>
+        ) : (
+          stories.map(story => (
             <div 
               key={story.id} 
               className="story-card"
               onClick={() => handleStorySelect(story.id)}
             >
-              {story.imageUrl ? (
-                <img src={story.imageUrl} alt={story.title} className="story-image" />
+              {story.thumbnail ? (
+                <img src={story.thumbnail} alt={story.title} className="story-image" />
               ) : (
                 <div 
                   style={{ 
                     height: '100%', 
-                    backgroundColor: story.color,
+                    // random background color
+                    backgroundColor: `#${Math.floor(Math.random()*16777215).toString(16)}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -303,7 +317,7 @@ const StoriesExplorer = ({ userData }) => {
               </div>
             </div>
           ))
-        ) : (
+        )} : (
           <div style={{ 
             padding: '20px', 
             textAlign: 'center', 
@@ -312,10 +326,9 @@ const StoriesExplorer = ({ userData }) => {
           }}>
             No stories found matching your criteria
           </div>
-        )}
+        )
       </div>
 
-      {/* Navigation bar for mobile */}
       <div 
         style={{
           position: 'fixed',

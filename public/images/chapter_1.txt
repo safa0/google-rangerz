@@ -1,0 +1,15 @@
+```
+<img>
+A young boy, John, with short brown hair and wearing a blue hiking outfit, stands at the edge of a crystal-clear stream in a lush, green forest. Sunlight filters through the tall trees, creating dappled patterns on the ground. He holds a fishing rod, his eyes sparkling with anticipation. In the background, a small, wooden [cottage](stuga) is partially visible through the trees, smoke curling from its chimney. The overall mood is peaceful and adventurous. The water in the stream glistens, and small, colorful fish can be seen darting beneath the surface. The sky is clear with a few fluffy white clouds.
+</img>
+<txt>
+John var på [vandring](hiking) i en djup [skog](forest), redo att [fiska](fishing) i den kristallklara forsen. Han älskade att vara ute i naturen, särskilt i [skogen](forest) där han kunde höra [vattnet](water) porla. Han hade med sig sitt [fiskespö](fishing rod) och en [tält](tent) för att sova. Vilka [hemligheter](secrets) gömmer sig i [skogen](forest)?
+</txt>
+<opt>
+Vad ska John göra först? [Fiska i forsen] [Utforska skogen] [Slå upp tältet]
+</opt>
+<exe>
+Matcha följande ord med deras rätta betydelser:
+[skog](forest) [vatten](water) [fiske](fishing) [tält](tent)
+</exe>
+```

@@ -9,6 +9,7 @@ import json
 import secrets
 import uuid
 import datetime
+from init_db import init_db
 
 app = Flask(__name__)
 # Improved CORS configuration with origin explicitly set
@@ -20,78 +21,88 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Set to Lax to allow redirects w
 # Configure longer session lifetime
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=7)  # 7 days
 
-# Setup and migrate database
-def init_db():
-    conn = sqlite3.connect('users.db')
-    cursor = conn.cursor()
-    
-    # First, check if users table exists
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
-    users_table_exists = cursor.fetchone() is not None
-    
-    if not users_table_exists:
-        # Create the users table with all columns if it doesn't exist
-        cursor.execute('''
-        CREATE TABLE users (
-            id TEXT PRIMARY KEY,
-            email TEXT UNIQUE,
-            name TEXT,
-            picture TEXT,
-            is_new_user BOOLEAN DEFAULT 1,
-            onboarding_completed BOOLEAN DEFAULT 0,
-            last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-        ''')
-    else:
-        # Table exists, check for missing columns and add them safely
-        # SQLite doesn't allow adding columns with non-constant default values,
-        # so we need to add them without defaults and then update them
-        
-        # Check for needed columns
-        cursor.execute("PRAGMA table_info(users)")
-        existing_columns = [column[1] for column in cursor.fetchall()]
-        print(f"Existing columns: {existing_columns}")
-        
-        # Add missing columns without defaults
-        if 'is_new_user' not in existing_columns:
-            print("Adding is_new_user column...")
-            cursor.execute("ALTER TABLE users ADD COLUMN is_new_user BOOLEAN")
-            cursor.execute("UPDATE users SET is_new_user = 0")
-            
-        if 'onboarding_completed' not in existing_columns:
-            print("Adding onboarding_completed column...")
-            cursor.execute("ALTER TABLE users ADD COLUMN onboarding_completed BOOLEAN")
-            cursor.execute("UPDATE users SET onboarding_completed = 0")
-            
-        if 'created_at' not in existing_columns:
-            print("Adding created_at column...")
-            cursor.execute("ALTER TABLE users ADD COLUMN created_at TIMESTAMP")
-            cursor.execute("UPDATE users SET created_at = CURRENT_TIMESTAMP")
-            
-        # Handle NULL values in existing columns
-        cursor.execute("UPDATE users SET is_new_user = 0 WHERE is_new_user IS NULL")
-        cursor.execute("UPDATE users SET onboarding_completed = 0 WHERE onboarding_completed IS NULL")
-    
-    # Create user_preferences table if it doesn't exist
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS user_preferences (
-        user_id TEXT PRIMARY KEY,
-        interests TEXT,
-        age INTEGER,
-        skill_level TEXT,
-        character TEXT,
-        FOREIGN KEY (user_id) REFERENCES users (id)
-    )
-    ''')
-    
-    conn.commit()
-    conn.close()
-    print("Database initialization and migration completed.")
-
 @app.route('/')
 def index():
     return jsonify({"status": "API is running"})
+
+@app.route('/api/story/user/<user_id>', methods=['GET'])
+def get_stories(user_id):
+    """Retrieve all stories for a given user_id"""
+    try:
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM stories WHERE user_id = ?", (user_id,))
+        stories = cursor.fetchall()
+        conn.close()
+
+        if stories:
+            story_list = [{
+                'id': s[0],
+                'user_id': s[1],
+                'title': s[2],
+                'status': s[3],
+                'thumbnail': s[4],
+                'story_info': s[5]
+            } for s in stories]
+
+            return jsonify({'status': 'success', 'stories': story_list})
+        else:
+            return jsonify({'status': 'error', 'message': 'No stories found for this user'}), 404
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/story/<story_id>', methods=['GET'])
+def get_story(story_id):
+    """Retrieve a single story by story_id"""
+    try:
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM stories WHERE id = ?", (story_id,))
+        story = cursor.fetchone()
+        conn.close()
+
+        if story:
+            story_data = {
+                'id': story[0],
+                'user_id': story[1],
+                'title': story[2],
+                'status': story[3],
+                'thumbnail': story[4],
+                'story_info': story[5]
+            }
+            return jsonify({'status': 'success', 'story': story_data})
+        else:
+            return jsonify({'status': 'error', 'message': 'Story not found'}), 404
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/story/<story_id>/chapters', methods=['GET'])
+def get_chapters_by_story(story_id):
+    """Retrieve all chapters for a given story_id"""
+    try:
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM chapters WHERE story_id = ? ORDER BY chapter_number ASC", (story_id,))
+        chapters = cursor.fetchall()
+        conn.close()
+
+        if chapters:
+            chapter_list = [{
+                'id': c[0],
+                'story_id': c[1],
+                'chapter_number': c[2],
+                'metadata': c[3],
+                'raw_text': c[4],
+                'image': c[5],
+                'exe_result': c[6]
+            } for c in chapters]
+
+            return jsonify({'status': 'success', 'chapters': chapter_list})
+        else:
+            return jsonify({'status': 'error', 'message': 'No chapters found for this story'}), 404
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 
 @app.route('/api/auth/mock-google', methods=['POST'])
 def mock_google_login():

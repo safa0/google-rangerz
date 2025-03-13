@@ -1,0 +1,17 @@
+```
+<img>
+A ten-year-old boy, John, with short, brown hair and wearing a green hiking vest, kneels beside a clear, fast-flowing stream in a dense forest. He is intently looking into his backpack. The sun is shining through the tall trees, casting dappled light on the forest floor, where fallen leaves and small rocks are scattered. John's face shows determination as he rummages through the backpack, searching for his fishing gear. The air is fresh, and the sounds of birds and flowing water can be heard. In the background, a dense forest stretches into the distance, and a small, blue tent is pitched nearby.
+</img>
+<txt>
+John [böjde](bent) sig ner och [öppnade](opened) sin [ryggsäck](backpack). Han [letade](searched) efter sin [fiskeutrustning](fishing gear). Han ville [fiska](fish) i den kristallklara [forsen](stream). Hans [tält](tent) stod nära, redo för en [natt](night) i [skog](forest).
+</txt>
+<opt>
+Vad hittar John först? [Fiskespöet] [En varm tröja] [En bok]
+</opt>
+<exe>
+<exe>
+Vilken ordform används här?
+"Han [letade](searched) efter sitt fiskespö."
+[Presens] [Preteritum](rätt) [Infinitiv]
+</exe>
+```
