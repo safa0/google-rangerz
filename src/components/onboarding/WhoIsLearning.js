@@ -9,19 +9,19 @@ const WhoIsLearning = ({ updateUserData }) => {
     { 
       id: 'myKids', 
       label: 'Mina barn', 
-      description: 'Jag är en förälder eller vårdnadshavare och använder Svenska Ugglan med barn hemma.',
+      description: 'Jag är en förälder eller vårdnadshavare och använder Lexi AI med barn hemma.',
       icon: '👨‍👧‍👦'
     },
     { 
       id: 'myStudents', 
       label: 'Mina elever', 
-      description: 'Jag är en lärare eller pedagog och använder Svenska Ugglan med elever.',
+      description: 'Jag är en lärare eller pedagog och använder Lexi AI med elever.',
       icon: '📚'
     },
     { 
       id: 'myself', 
       label: 'Jag själv', 
-      description: 'Jag är en elev och använder Svenska Ugglan för att lära mig.',
+      description: 'Jag är en elev och använder Lexi AI för att lära mig.',
       icon: '🧒'
     }
   ];

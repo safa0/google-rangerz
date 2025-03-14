@@ -102,18 +102,20 @@ const Welcome = () => {
     return <div className="loading">Redirecting to stories...</div>;
   }
 
+const logoImage = '/assests/images/lexi_ai.jpg';
+
   return (
     <div className="welcome-container">
       <div className="welcome-logo">
         <img 
-          src="/logo.svg" 
-          alt="Svenska Ugglan" 
-          style={{ width: '100%', height: '100%' }}
+          src={logoImage}    
+          alt="Lexi AI" 
+          style={{ width: '100%', height: '100%', borderRadius : '50%', objectFit : 'cover', objectPosition : 'center', filter : 'brightness (50%)', }}
           onError={(e) => {
             e.target.onerror = null;
             // Fallback to a colored div with text if image fails to load
             e.target.parentNode.innerHTML = `
-              <div style="width: 100%; height: 100%; background-color: #58CC02; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">
+              <div style="width: 100%; height: 100%; background-color: #00FFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">
                 SU
               </div>
             `;
@@ -122,10 +124,10 @@ const Welcome = () => {
       </div>
       
       <h1 className="app-name">
-        Svenska <span className="app-name-highlight">Ugglan</span>
+        <span className="app-name-highlight">Lexi AI</span>
       </h1>
       
-      <p className="welcome-tagline">Lär dig svenska gratis</p>
+      <p className="welcome-tagline">Lär dig svenska enkelt</p>
       
       {error && (
         <div className="error-message" style={{ color: 'red', marginBottom: '20px' }}>
@@ -161,7 +163,7 @@ const Welcome = () => {
           <button 
             className="login-button get-started"
             onClick={() => openAuthModal(true)}
-            style={{ backgroundColor: '#58CC02', color: 'white' }}
+            style={{ backgroundColor: '#004B76', color: 'white' }}
           >
             SIGN UP
           </button>
@@ -245,7 +247,7 @@ const MockLoginForm = memo(({ isLoading, isSignup, onLogin, onCancel }) => {
               disabled={isLoading}
               style={{ 
                 padding: '8px 16px', 
-                backgroundColor: isSignup ? '#58CC02' : '#4285F4', 
+                backgroundColor: isSignup ? '#004B76' : '#4285F4', 
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',

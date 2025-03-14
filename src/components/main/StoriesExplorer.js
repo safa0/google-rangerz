@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getStoriesbyUserID } from './story_api_render.js';  // Import the new API function
+import { getStoriesbyUserID, getChaptersByStory } from './story_api_render.js';  // Import the new API function
 import { AuthContext } from '../../App';
 
 const StoriesExplorer = ({ userData }) => {
@@ -112,6 +112,13 @@ const StoriesExplorer = ({ userData }) => {
       // user id is hardcoded for now
       // if (!userData || !userData.id) return;
       const fetchedStories = await getStoriesbyUserID("user_123");
+      console.log(fetchedStories)
+      for (let i = 0; i < fetchedStories.length; i++) {
+        console.log(fetchedStories[i].id);
+        const chapters = await getChaptersByStory(fetchedStories[i].id);
+        fetchedStories[i].thumbnail = chapters[0].image
+      } 
+      
       if (fetchedStories.length > 0) {
         setStories(fetchedStories);
       } else {

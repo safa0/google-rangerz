@@ -41,7 +41,7 @@
   
   .progress-fill {
     height: 100%;
-    background-color: #58CC02;
+    background-color: #004B76;
     border-radius: 8px;
     transition: width 0.5s ease;
   }
@@ -94,7 +94,7 @@
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 40px;
-    color: #333;
+    color: white;
   }
   
   .story-start-button {

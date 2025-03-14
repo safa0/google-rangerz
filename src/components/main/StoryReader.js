@@ -8,6 +8,85 @@ import StoryComplete from './StoryComplete';
 import './StoryReader.css';
 import { getChaptersByStory, getStoryById } from './story_api_render.js';
 
+
+/**
+ * Parses question text with specific tag formatting
+ * - Text inside <q> tags goes to txt property
+ * - Text in brackets followed by (rätt) goes to right array
+ * - All other bracketed text goes to wrong array
+ * 
+ * @param {string} text - The text to parse
+ * @return {Object} Parsed question object with txt, right, and wrong properties
+ */
+function parseQuestion(text) {
+  // Regular expression to find content within <q> tags and everything after until next <q> tag
+  const regex = /<q>\s*(.*?)\s*<\/q>\s*(.*?)(?=\s*<q>|$)/gs;
+  
+  const match = regex.exec(text);
+  if (!match) {
+    return null;
+  }
+  
+  const txt = match[1].trim();
+  const optionsText = match[2].trim();
+  
+  const right = [];
+  const wrong = [];
+  
+  // Find all bracketed options
+  const optionRegex = /\[(.*?)\](?:\(rätt\))?/g;
+  let optionMatch;
+  
+  while ((optionMatch = optionRegex.exec(optionsText)) !== null) {
+    const content = optionMatch[1].trim();
+    if (optionMatch[0].includes("(rätt)")) {
+      right.push(content);
+    } else {
+      wrong.push(content);
+    }
+  }
+  
+  return { txt, right, wrong };
+}
+
+// Example usage
+const example = '<q> Var?dawd dawd </q> [I ett vind](rätt) [I ett kök] [I en skog] <q>';
+const parsed = parseQuestion(example);
+console.log(JSON.stringify(parsed, null, 2));
+
+/**
+ * For multiple questions, use this function instead
+ */
+function parseAllQuestions(text) {
+  const result = [];
+  const regex = /<q>\s*(.*?)\s*<\/q>\s*(.*?)(?=\s*<q>|$)/gs;
+  
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    const txt = match[1].trim();
+    const optionsText = match[2].trim();
+    
+    const right = [];
+    const wrong = [];
+    
+    const optionRegex = /\[(.*?)\](?:\(rätt\))?/g;
+    let optionMatch;
+    
+    while ((optionMatch = optionRegex.exec(optionsText)) !== null) {
+      const content = optionMatch[1].trim();
+      if (optionMatch[0].includes("(rätt)")) {
+        right.push(content);
+      } else {
+        wrong.push(content);
+      }
+    }
+    
+    result.push({ txt, right, wrong });
+  }
+  
+  return result;
+}
+
 const StoryReader = ({ userData, updateUserStats }) => {
   const navigate = useNavigate();
   const { storyId } = useParams();
@@ -164,7 +243,11 @@ const StoryReader = ({ userData, updateUserStats }) => {
         return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
       case 'comprehension_text':
         console.log("comprehension_text");
-        return <ReadingComponent imageUrl={current_stage_page.imageUrl} text={current_stage_page.question} onNext={handleNext} />;
+        const rawData = parseQuestion(current_stage_page.question);
+        console.log(rawData.right)
+        console.log(rawData.wrong)
+        rawData.wrong.push(rawData.right[0])
+        return <ComprehensionComponent imageUrl={current_stage_page.imageUrl} question={rawData.txt} correctAnswer={rawData.right} options={rawData.wrong} onNext={handleNext} />;
       default:
         return <div>Unknown page type</div>;
     }

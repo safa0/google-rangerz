@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './StoryComponents.css';
 
-const ComprehensionComponent = ({ imageUrl, question, onNext }) => {
+
+const ComprehensionComponent = ({ imageUrl, question, options, correctAnswer, onNext }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -9,7 +10,7 @@ const ComprehensionComponent = ({ imageUrl, question, onNext }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isQuestionVisible, setIsQuestionVisible] = useState(false);
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
-  
+  correctAnswer = correctAnswer[0]; // Convert to string for comparison
   useEffect(() => {
     // Sequential animation on mount
     const imageTimer = setTimeout(() => {
@@ -36,6 +37,12 @@ const ComprehensionComponent = ({ imageUrl, question, onNext }) => {
     
     setSelectedOption(option);
     setIsCorrect(option === correctAnswer);
+    if(option === correctAnswer){
+      console.log("Correct: increasing difficulty level");
+    }
+    else {
+      console.log("Incorrect: decreasing difficulty level");
+    }
     setShowFeedback(true);
     setIsAnimating(true);
     
